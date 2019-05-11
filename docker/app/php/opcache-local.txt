@@ -1,3 +1,0 @@
-/srv/src/
-/srv/templates/
-/srv/config/

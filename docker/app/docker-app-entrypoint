@@ -1,8 +1,0 @@
-#!/bin/sh
-set -e
-
-# Daemonize php-fpm
-php-fpm -D
-
-# Run Nginx in the foreground
-nginx -g "daemon off;"
