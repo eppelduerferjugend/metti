@@ -18,8 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->string('slug')->nullable()->default(null);
             $table->string('color')->nullable()->default(null);
-            $table->integer('available')->default(1);
-            $table->integer('stock')->nullable()->default(null);
+            $table->boolean('available')->default(true);
             $table->integer('orderNr');
             $table->unsignedBigInteger('parent_id')->nullable()->default(null);
             $table->unsignedBigInteger('category_id');
