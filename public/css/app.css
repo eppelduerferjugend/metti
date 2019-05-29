@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@charset "UTF-8";
 
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
@@ -10662,8 +10662,217 @@ a.text-dark:focus {
   }
 }
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 2rem;
+  font-weight: 100;
+  background-color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.navbar {
+  margin-bottom: 10px;
+}
+
+ul.categoryList > li {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.clear {
+  clear: both;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.red {
+  color: #e53935;
+}
+
+@-webkit-keyframes pulsing {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  5% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+
+  10% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  15% {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.3);
+  }
+
+  100%, 50% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes pulsing {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  5% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+
+  10% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  15% {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.3);
+  }
+
+  100%, 50% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.pulse {
+  -webkit-animation: pulsing 2.5s infinite;
+  animation: pulsing 2.5s infinite;
+}
+
+.border-bottom {
+  border-bottom: 1px #e5e5e5 solid;
+}
+
+.description {
+  padding-bottom: 0.6rem;
+}
+
+ul.petitionsList > li {
+  padding: 1.2rem 0;
+}
+
+li.petition .name {
+  margin-bottom: 4px;
+}
+
+li.petition .meta {
+  font-size: 0.875rem;
+}
+
+li.petition .meta span {
+  padding-right: 1.14rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+.stats {
+  display: block;
+}
+
+.stats .daily {
+  font-size: 8rem;
+  margin-bottom: -0.3em;
+  text-align: center;
+}
+
+.stats .weekly,
+.stats .monthly {
+  font-size: 2rem;
+  margin-bottom: -0.3em;
+}
+
+.stats .label {
+  font-size: 1rem;
+}
+
+.stats .dailyContainer {
+  margin-bottom: -0.8rem;
+}
+
+.greenBg {
+  background-color: #00f3a5;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.greenBg footer {
+  color: #ffffff;
+}
+
+.greenBg footer a,
+.greenBg footer a:hover,
+.greenBg footer a:link,
+.greenBg footer a:active {
+  color: #ffffff;
+}
+
+.stats-header {
+  padding-bottom: 1em;
+}
+
+.smallGraph {
+  max-height: 3.5rem;
+}
+
+.petitionNumber {
+  font-size: 5rem;
+}
+
+@media (min-width: 768px) {
+  .petitionNumber {
+    font-size: 6.8vw;
+    margin-bottom: 1rem;
+  }
 }
 
