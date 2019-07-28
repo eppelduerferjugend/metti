@@ -14,8 +14,6 @@ class AdminController extends Controller
         return view(
             'admin',
             [
-                //'categories' => Category::get(),
-                //'items' => Item::get(),
                 'orders' => Order::get(),
             ]
         );

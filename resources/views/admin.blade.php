@@ -7,6 +7,8 @@ Admin
 @section('content')
     <div class="col-7">
         <h2>Orders</h2>
+        <orders></orders>
+
         <ul class="orderList">
             @foreach ($orders as $key => $order)
                 <li>
@@ -30,6 +32,7 @@ Admin
                 </li>
             @endforeach
         </ul>
+
     </div>
     <div class="col-5">
         Statistics
