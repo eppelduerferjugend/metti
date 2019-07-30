@@ -22,8 +22,8 @@ class Category extends Model
     {
         return $this->hasMany(Item::class);
     }
-    public function completions()
+    public function orders()
     {
-        return $this->hasMany(OrderCompletion::class);
+        return $this->hasMany(Order::class);
     }
 }

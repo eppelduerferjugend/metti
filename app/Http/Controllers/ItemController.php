@@ -21,11 +21,11 @@ class ItemController extends Controller
             )
         ];
         try {
-            \Influx::writePoints($point);
+            //\Influx::writePoints($point);
         } catch (\InfluxDB\Exception $e) {
             return 'NO INFLUX'.$e->getmessage();
         }
-        return Item::with(['category'])->get();
+        return Item::get();
     }
     public function showAPI($id)
     {

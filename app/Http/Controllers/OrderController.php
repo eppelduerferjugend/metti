@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
-use App\OrderCompletion;
 use App\OrderItem;
 
 class OrderController extends Controller
 {
     public function indexAPI()
     {
-        return Order::with(['completions'])->get();
+        return Order::get();
     }
 
     public function showAPI($id)
@@ -24,7 +23,7 @@ class OrderController extends Controller
         return [$id, explode(',',$category)];
     }
 
-    public function incompleteIndexAPI()
+    /*public function incompleteIndexAPI()
     {
 
         $orders = Order::with(['completions.category','items.category'])->get()->toArray();
@@ -78,7 +77,7 @@ class OrderController extends Controller
 
         }
         return $orders;
-    }
+    }*/
     public function incompleteCategoriesAPI($categories)
     {
         return Order::with(['completions'])->get();

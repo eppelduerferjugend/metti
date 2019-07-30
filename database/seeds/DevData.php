@@ -217,12 +217,16 @@ class DevData extends Seeder
         $comments = ['Eng hallef portioun', 'All Zoossen', '','','', 'Bolo mat Carbonara'];
         
         // insert random orders
-        for ($i=0;$i<37;$i++)
+        for ($i=0;$i<7;$i++)
         {
+            $rnd_category = DB::table('categories')->inRandomOrder()->first()->id;
             $id = DB::table('orders')->insertGetId([
                 'waiter' => $waiters[array_rand($waiters)],
                 'table' => strtoupper(Str::random(1)).rand(1, 9),
                 'comment' => $comments[array_rand($comments)],
+                'started_at' => null,
+                'completed_at' => null,
+                'category_id' => $rnd_category,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ]);
@@ -232,15 +236,15 @@ class DevData extends Seeder
             {
                 DB::table('order_items')->insert([
                     'order_id' => $id,
-                    'item_id' => DB::table('items')->where('category_id', DB::table('categories')->inRandomOrder()->first()->id)->inRandomOrder()->first()->id,
-                    'quantity' => rand(1,3),
+                    'item_id' => DB::table('items')->where('category_id', $rnd_category)->inRandomOrder()->first()->id,
+                    'quantity' => rand(1,5),
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ]);
             }
 
             // set random completion statuses for the just generated orders
-            switch(rand(1,5))
+            /*switch(rand(1,5))
             {
                 // 1 = no completion yet
                 case 1:
@@ -278,7 +282,7 @@ class DevData extends Seeder
                         'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     ]);
                     break;
-            }
+            }*/
         }
     }
 }

@@ -18,6 +18,14 @@ class CreateOrdersTable extends Migration
             $table->string('waiter');
             $table->string('table');
             $table->string('comment')->nullable()->default(null);
+            $table->unsignedBigInteger('category_id');
+            $table->dateTime('started_at')->nullable()->default(null);
+            $table->dateTime('completed_at')->nullable()->default(null);
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

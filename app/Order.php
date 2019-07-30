@@ -17,9 +17,9 @@ class Order extends Model
         'updated_at',
     ];
 
-    public function completions()
+    public function category()
     {
-        return $this->hasMany(OrderCompletion::class);
+        return $this->belongsTo(Category::class);
     }
     public function items()
     {

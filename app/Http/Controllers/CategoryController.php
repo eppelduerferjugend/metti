@@ -20,7 +20,7 @@ class CategoryController extends Controller
     // API
     public function indexAPI()
     {
-        return Category::with(['items'])->get();
+        return Category::get();
     }
     public function showAPI($id)
     {

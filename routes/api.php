@@ -29,3 +29,5 @@ Route::get('/order/complete/{id}/{category}', 'OrderController@completeAPI')->wh
 
 Route::get('/order/incomplete', 'OrderController@incompleteIndexAPI');
 Route::get('/order/incomplete/{categories}', 'OrderController@incompleteCategoriesAPI');
+
+Route::get('/stats', 'StatisticsController@IndexAPI');
