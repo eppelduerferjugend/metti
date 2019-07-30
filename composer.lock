@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbabc4001e998bd90f666d051fc782db",
+    "content-hash": "44e3ffd1e9a8e1da5b02e23a4e52d1ee",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -326,24 +326,24 @@
         },
         {
             "name": "fideloper/proxy",
-            "version": "4.1.0",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fideloper/TrustedProxy.git",
-                "reference": "177c79a2d1f9970f89ee2fb4c12b429af38b6dfb"
+                "reference": "39a4c2165e578bc771f5dc031c273210a3a9b6d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/177c79a2d1f9970f89ee2fb4c12b429af38b6dfb",
-                "reference": "177c79a2d1f9970f89ee2fb4c12b429af38b6dfb",
+                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/39a4c2165e578bc771f5dc031c273210a3a9b6d2",
+                "reference": "39a4c2165e578bc771f5dc031c273210a3a9b6d2",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "~5.0",
+                "illuminate/contracts": "~5.0|~6.0",
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "illuminate/http": "~5.6",
+                "illuminate/http": "~5.6|~6.0",
                 "mockery/mockery": "~1.0",
                 "phpunit/phpunit": "^6.0"
             },
@@ -376,7 +376,7 @@
                 "proxy",
                 "trusted proxy"
             ],
-            "time": "2019-01-10T14:06:47+00:00"
+            "time": "2019-07-29T16:49:45+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -567,16 +567,16 @@
         },
         {
             "name": "influxdb/influxdb-php",
-            "version": "1.15.0",
+            "version": "1.14.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/influxdata/influxdb-php.git",
-                "reference": "bf3415f81962e1ab8c939bc1a08a85f500bead35"
+                "reference": "e2c94cc7402d892185b3833f9627d67b6379e3d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/influxdata/influxdb-php/zipball/bf3415f81962e1ab8c939bc1a08a85f500bead35",
-                "reference": "bf3415f81962e1ab8c939bc1a08a85f500bead35",
+                "url": "https://api.github.com/repos/influxdata/influxdb-php/zipball/e2c94cc7402d892185b3833f9627d67b6379e3d8",
+                "reference": "e2c94cc7402d892185b3833f9627d67b6379e3d8",
                 "shasum": ""
             },
             "require": {
@@ -587,7 +587,6 @@
                 "phpunit/phpunit": "^5.7"
             },
             "suggest": {
-                "ext-curl": "Curl extension, needed for Curl driver",
                 "stefanotorresi/influxdb-php-async": "An asyncronous client for InfluxDB, implemented via ReactPHP."
             },
             "type": "library",
@@ -624,7 +623,7 @@
                 "influxdb library",
                 "time series"
             ],
-            "time": "2019-05-30T00:15:14+00:00"
+            "time": "2019-05-30T00:05:10+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -716,16 +715,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.29",
+            "version": "v5.8.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "489ae2218c7eb138caac780de584d8df9fe8160b"
+                "reference": "7ccf0cf63931a8d8391aed90e6fc011381ea6838"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/489ae2218c7eb138caac780de584d8df9fe8160b",
-                "reference": "489ae2218c7eb138caac780de584d8df9fe8160b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7ccf0cf63931a8d8391aed90e6fc011381ea6838",
+                "reference": "7ccf0cf63931a8d8391aed90e6fc011381ea6838",
                 "shasum": ""
             },
             "require": {
@@ -859,26 +858,26 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-07-16T14:05:28+00:00"
+            "time": "2019-07-30T14:08:47+00:00"
         },
         {
             "name": "laravel/tinker",
-            "version": "v1.0.8",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "cafbf598a90acde68985660e79b2b03c5609a405"
+                "reference": "eb0075527fdeeb1cc1d68bd4ca7d50256b30a827"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/cafbf598a90acde68985660e79b2b03c5609a405",
-                "reference": "cafbf598a90acde68985660e79b2b03c5609a405",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/eb0075527fdeeb1cc1d68bd4ca7d50256b30a827",
+                "reference": "eb0075527fdeeb1cc1d68bd4ca7d50256b30a827",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "~5.1",
-                "illuminate/contracts": "~5.1",
-                "illuminate/support": "~5.1",
+                "illuminate/console": "~5.1|^6.0",
+                "illuminate/contracts": "~5.1|^6.0",
+                "illuminate/support": "~5.1|^6.0",
                 "php": ">=5.5.9",
                 "psy/psysh": "0.7.*|0.8.*|0.9.*",
                 "symfony/var-dumper": "~3.0|~4.0"
@@ -922,7 +921,7 @@
                 "laravel",
                 "psysh"
             ],
-            "time": "2018-10-12T19:39:35+00:00"
+            "time": "2019-07-29T18:09:25+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1309,6 +1308,64 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "pdffiller/laravel-influx-provider",
+            "version": "v1.6.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pdffiller/laravel-influx-provider.git",
+                "reference": "ba1899a29972420c5ca703516680ecc90db01228"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pdffiller/laravel-influx-provider/zipball/ba1899a29972420c5ca703516680ecc90db01228",
+                "reference": "ba1899a29972420c5ca703516680ecc90db01228",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/log": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+                "illuminate/support": "5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*",
+                "influxdb/influxdb-php": "1.14.*",
+                "monolog/monolog": "^1.19",
+                "php": "^5.6 || ^7.0 || ^7.1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pdffiller\\LaravelInfluxProvider\\InfluxDBServiceProvider"
+                    ],
+                    "aliases": {
+                        "Influx": "Pdffiller\\LaravelInfluxProvider\\InfluxDBFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pdffiller\\LaravelInfluxProvider\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Balandin",
+                    "email": "anbalandin@gmail.com"
+                }
+            ],
+            "description": "Service provider to set up and use InfluxDB SDK in Laravel 5",
+            "keywords": [
+                "influx-db",
+                "laravel"
+            ],
+            "time": "2019-03-25T22:05:17+00:00"
         },
         {
             "name": "phpoption/phpoption",
