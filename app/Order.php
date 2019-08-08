@@ -14,7 +14,6 @@ class Order extends Model
      * @var array
      */
     protected $hidden = [
-        'updated_at',
     ];
 
     public function category()
