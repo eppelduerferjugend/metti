@@ -18,18 +18,32 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->string('slug')->nullable()->default(null);
             $table->string('color')->nullable()->default(null);
-            $table->boolean('available')->default(true);
-            $table->integer('orderNr');
+            $table->float('unit_price')->nullable()->default(null);
+            $table->integer('sorting_nr');
             $table->unsignedBigInteger('parent_id')->nullable()->default(null);
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('destination_id');
+            $table->unsignedBigInteger('category_id')->nullable()->default(null);
+
+            // SQL transactions fir orders
+
+            // all order nummer soll eng nummer kréien déi zB 8 ass wann scho 7 portiounen bestallt sinn
+
 
             $table->foreign('parent_id')
                 ->references('id')
-                ->on('items');
+                ->on('items')
+                ->onDelete('cascade');
+
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
                 ->onDelete('cascade');
+
+            $table->foreign('destination_id')
+                ->references('id')
+                ->on('destinations')
+                ->onDelete('cascade');
+
 
             $table->timestamps();
         });

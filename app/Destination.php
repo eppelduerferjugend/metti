@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Destination extends Model
 {
     protected $guarded = [];
 
@@ -14,15 +14,16 @@ class Order extends Model
      * @var array
      */
     protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 
-    public function destination()
-    {
-        return $this->belongsTo(Destination::class);
-    }
     public function items()
     {
-        return $this->belongsToMany(Item::class, 'order_items')
-            ->withPivot('quantity');
+        return $this->hasMany(Item::class);
+    }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

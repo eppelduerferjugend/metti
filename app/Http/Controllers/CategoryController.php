@@ -12,7 +12,6 @@ class CategoryController extends Controller
         return view(
             'categories',
             Category::with(['items'])->get()
-
         );
     }
 

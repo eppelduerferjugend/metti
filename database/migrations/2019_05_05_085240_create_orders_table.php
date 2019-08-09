@@ -15,16 +15,16 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('number');
             $table->string('waiter');
             $table->string('table');
             $table->string('comment')->nullable()->default(null);
-            $table->unsignedBigInteger('category_id');
-            $table->dateTime('started_at')->nullable()->default(null);
             $table->dateTime('completed_at')->nullable()->default(null);
+            $table->unsignedBigInteger('destination_id');
 
-            $table->foreign('category_id')
+            $table->foreign('destination_id')
                 ->references('id')
-                ->on('categories')
+                ->on('destinations')
                 ->onDelete('cascade');
 
             $table->timestamps();
