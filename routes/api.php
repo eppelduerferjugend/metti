@@ -28,6 +28,7 @@ Route::get('/item/{id}', 'ItemController@showAPI')->where('id', '[0-9]+'); // DO
 Route::get('/order', 'OrderController@indexAPI'); // DONE
 Route::get('/order/{id}', 'OrderController@showAPI')->where('id', '[0-9]+'); // DONE
 Route::get('/order/updated_after/{updated_time}', 'OrderController@updatedAfterAPI'); // DONE
+Route::get('/order/updated_after/{destination}/{updated_time}', 'OrderController@updatedAfterByDestinationAPI'); // DONE
 Route::get('/order/table/{search_string}', 'OrderController@tableStatusAPI'); // get current orders of table
 
 Route::get('/order/incomplete', 'OrderController@incompleteIndexAPI'); // DONE

@@ -137,4 +137,19 @@ class OrderController extends Controller
 
         return $orders;
     }
+
+    public function updatedAfterByDestinationAPI($destination, $time)
+    {
+        $orders = Order::where('updated_at', '>=', Carbon::createFromTimestampUTC($time)->timezone(env('timezone'))->toDateTimeString())
+            ->where('destination_id', $destination)
+            ->with(['items', 'destination'])
+            ->get();
+        foreach($orders as $order_key => $order)
+        {
+            $orders[$order_key] = self::beautifyOrders($order);
+        }
+
+        return $orders;
+    }
+
 }
