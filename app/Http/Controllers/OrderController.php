@@ -113,9 +113,33 @@ class OrderController extends Controller
                     'quantity' => $item->quantity
                 ]);
             }
-            $result[] = self::beautifyOrders(Order::with(['items', 'destination'])
+
+            $created_order = self::beautifyOrders(Order::with(['items', 'destination'])
             ->where('id', $created_order->id)
             ->first());
+
+            try {
+                \Influx::writePoints([
+                    new \InfluxDB\Point(
+                        'orders',
+                        null, // some value for some_name
+                        [], // array of string values
+                        [
+                            'status' => 'placed',
+                            'destination' => $created_order->destination->name,
+                            'order_price' => $created_order->order_price,
+                            'waiter' => $created_order->waiter,
+                            'table' => $created_order->table,
+                            'quantity' => $created_order->order_quantity
+                        ]
+                    )
+                ]);
+            } catch (\InfluxDB\Exception $e) {
+                //respond::: 'NO INFLUX'.$e->getmessage();
+                //TODO: send email, no error as not important
+            }
+
+            $result[] = $created_order;
         }
 
         return $result;
@@ -139,23 +163,22 @@ class OrderController extends Controller
         $order = self::beautifyOrders(Order::with(['items', 'destination'])
             ->findOrFail($id));
 
-        $point = [
-            new \InfluxDB\Point(
-                'orders',
-                null, // some value for some_name
-                [], // array of string values
-                [
-                    'status' => 'completed',
-                    'destination' => $order['destination']['name'],
-                    'order_price' => $order['order_price'],
-                    'waiter' => $order['waiter'],
-                    'table' => $order['table'],
-                    'quantity' => $order['order_quantity']
-                ]
-            )
-        ];
         try {
-            \Influx::writePoints($point);
+            \Influx::writePoints([
+                new \InfluxDB\Point(
+                    'orders',
+                    null, // some value for some_name
+                    [], // array of string values
+                    [
+                        'status' => 'completed',
+                        'destination' => $order['destination']['name'],
+                        'order_price' => $order['order_price'],
+                        'waiter' => $order['waiter'],
+                        'table' => $order['table'],
+                        'quantity' => $order['order_quantity']
+                    ]
+                )
+            ]);
         } catch (\InfluxDB\Exception $e) {
             //respond::: 'NO INFLUX'.$e->getmessage();
             //TODO: send email, no error as not important
@@ -175,6 +198,47 @@ class OrderController extends Controller
         return $result;
     }
 
+    public function reOpenAPI($id)
+    {
+        $result = Order::where([
+                'id' => $id,
+            ])
+            ->WhereNotNull('completed_at')
+            ->update([
+                'completed_at' => null
+            ]);
+
+        // If order has already been completed, don't go any further
+        if ($result === 0){
+            return $result;
+        }
+
+        $order = self::beautifyOrders(Order::with(['items', 'destination'])
+            ->findOrFail($id));
+
+        try {
+            \Influx::writePoints([
+                new \InfluxDB\Point(
+                    'orders',
+                    null, // some value for some_name
+                    [], // array of string values
+                    [
+                        'status' => 'reopened',
+                        'destination' => $order['destination']['name'],
+                        'order_price' => $order['order_price'],
+                        'waiter' => $order['waiter'],
+                        'table' => $order['table'],
+                        'quantity' => $order['order_quantity']
+                    ]
+                )
+            ]);
+        } catch (\InfluxDB\Exception $e) {
+            //respond::: 'NO INFLUX'.$e->getmessage();
+            //TODO: send email, no error as not important
+        }
+
+        return $result;
+    }
 
     //Only insert uppercase table numbers "U8"
 
