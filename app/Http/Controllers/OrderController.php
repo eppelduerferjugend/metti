@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\OrderItem;
 use Carbon\Carbon;
+use App\Destination;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -60,6 +63,62 @@ class OrderController extends Controller
     {
         return self::beautifyOrders(Order::with(['items', 'destination'])
             ->findOrFail($id));
+    }
+
+    protected function getDestinationsArray()
+    {
+        $destinationsRaw = Destination::get();
+        $destinations = [];
+        foreach($destinationsRaw as $destination)
+        {
+            $destinations[$destination['name']] = $destination['id'];
+        }
+        return $destinations;
+    }
+
+    protected function getNextOrderNumber($destination)
+    {
+        $order_count = DB::table('order_items')
+            ->join('items', function($join) use ($destination) {
+                $join->on('order_items.item_id', '=', 'items.id')
+                    ->Where('destination_id', $destination);
+            })
+            ->sum('quantity');
+
+        return $order_count + 1;
+    }
+
+    // Order creation
+    public function createAPI(Request $request)
+    {
+        $orders = json_decode($request->getContent());
+        $destinations = self::getDestinationsArray();
+
+        $result = [];
+        foreach($orders as $order)
+        {
+            $created_order = Order::create([
+                'destination_id' => $destinations[$order->destination],
+                'waiter' => $order->waiter,
+                'table' => $order->table,
+                'comment' => $order->comment,
+                'number' => self::getNextOrderNumber($destinations[$order->destination])
+            ]);
+
+            foreach($order->items as $item)
+            {
+                OrderItem::create([
+                    'order_id' => $created_order->id,
+                    'item_id' => $item->id,
+                    'quantity' => $item->quantity
+                ]);
+            }
+            $result[] = self::beautifyOrders(Order::with(['items', 'destination'])
+            ->where('id', $created_order->id)
+            ->first());
+        }
+
+        return $result;
     }
 
     public function completeAPI($id)

@@ -16,7 +16,7 @@ class DevData extends Seeder
     {
         // Destinations
         DB::table('destinations')->insert([
-            'name' => 'Kichen',
+            'name' => 'kitchen',
             'description' => 'Alles wat an d\'Kichen gehéiert'
         ]);
         DB::table('destinations')->insert([
@@ -40,7 +40,7 @@ class DevData extends Seeder
             'name' => 'Bolognaise',
             'slug' => 'Bolognaise',
             'sorting_nr' => 1,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -49,7 +49,7 @@ class DevData extends Seeder
             'slug' => 'Kleng',
             'sorting_nr' => 2,
             'parent_id' => DB::table('items')->where('name', 'Bolognaise')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -58,7 +58,7 @@ class DevData extends Seeder
             'slug' => 'Grouss',
             'sorting_nr' => 3,
             'parent_id' => DB::table('items')->where('name', 'Bolognaise')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -67,7 +67,7 @@ class DevData extends Seeder
             'name' => 'Pesto',
             'slug' => 'Pesto',
             'sorting_nr' => 4,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -76,7 +76,7 @@ class DevData extends Seeder
             'slug' => 'Kleng',
             'sorting_nr' => 5,
             'parent_id' => DB::table('items')->where('name', 'Pesto')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -85,7 +85,7 @@ class DevData extends Seeder
             'slug' => 'Grouss',
             'sorting_nr' => 6,
             'parent_id' => DB::table('items')->where('name', 'Pesto')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -94,7 +94,7 @@ class DevData extends Seeder
             'name' => 'Arrabiata',
             'slug' => 'Arrabiata',
             'sorting_nr' => 7,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -103,7 +103,7 @@ class DevData extends Seeder
             'slug' => 'Kleng',
             'sorting_nr' => 8,
             'parent_id' => DB::table('items')->where('name', 'Arrabiata')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -112,7 +112,7 @@ class DevData extends Seeder
             'slug' => 'Grouss',
             'sorting_nr' => 9,
             'parent_id' => DB::table('items')->where('name', 'Arrabiata')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -121,7 +121,7 @@ class DevData extends Seeder
             'name' => 'Carbonara',
             'slug' => 'Carbonara',
             'sorting_nr' => 10,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -130,7 +130,7 @@ class DevData extends Seeder
             'slug' => 'Kleng',
             'sorting_nr' => 11,
             'parent_id' => DB::table('items')->where('name', 'Carbonara')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -139,7 +139,7 @@ class DevData extends Seeder
             'slug' => 'Grouss',
             'sorting_nr' => 12,
             'parent_id' => DB::table('items')->where('name', 'Carbonara')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -148,7 +148,7 @@ class DevData extends Seeder
             'name' => 'Spezial',
             'slug' => 'Spezial',
             'sorting_nr' => 13,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -157,7 +157,7 @@ class DevData extends Seeder
             'slug' => 'Kleng',
             'sorting_nr' => 14,
             'parent_id' => DB::table('items')->where('name', 'Spezial')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
@@ -166,7 +166,7 @@ class DevData extends Seeder
             'slug' => 'Grouss',
             'sorting_nr' => 15,
             'parent_id' => DB::table('items')->where('name', 'Spezial')->first()->id,
-            'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
+            'destination_id' => DB::table('destinations')->where('name', 'kitchen')->first()->id,
             'created_at' => Carbon::now()->toDateTimeString(),
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
