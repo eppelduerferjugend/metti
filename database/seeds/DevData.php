@@ -41,8 +41,8 @@ class DevData extends Seeder
             'slug' => 'Bolognaise',
             'sorting_nr' => 1,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Kleng',
@@ -50,8 +50,8 @@ class DevData extends Seeder
             'sorting_nr' => 2,
             'parent_id' => DB::table('items')->where('name', 'Bolognaise')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'All-you-can-eat',
@@ -59,8 +59,8 @@ class DevData extends Seeder
             'sorting_nr' => 3,
             'parent_id' => DB::table('items')->where('name', 'Bolognaise')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         DB::table('items')->insert([
@@ -68,8 +68,8 @@ class DevData extends Seeder
             'slug' => 'Pesto',
             'sorting_nr' => 4,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Kleng',
@@ -77,8 +77,8 @@ class DevData extends Seeder
             'sorting_nr' => 5,
             'parent_id' => DB::table('items')->where('name', 'Pesto')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'All-you-can-eat',
@@ -86,8 +86,8 @@ class DevData extends Seeder
             'sorting_nr' => 6,
             'parent_id' => DB::table('items')->where('name', 'Pesto')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         DB::table('items')->insert([
@@ -95,8 +95,8 @@ class DevData extends Seeder
             'slug' => 'Arrabiata',
             'sorting_nr' => 7,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Kleng',
@@ -104,8 +104,8 @@ class DevData extends Seeder
             'sorting_nr' => 8,
             'parent_id' => DB::table('items')->where('name', 'Arrabiata')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'All-you-can-eat',
@@ -113,8 +113,8 @@ class DevData extends Seeder
             'sorting_nr' => 9,
             'parent_id' => DB::table('items')->where('name', 'Arrabiata')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         DB::table('items')->insert([
@@ -122,8 +122,8 @@ class DevData extends Seeder
             'slug' => 'Carbonara',
             'sorting_nr' => 10,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Kleng',
@@ -131,8 +131,8 @@ class DevData extends Seeder
             'sorting_nr' => 11,
             'parent_id' => DB::table('items')->where('name', 'Carbonara')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'All-you-can-eat',
@@ -140,8 +140,8 @@ class DevData extends Seeder
             'sorting_nr' => 12,
             'parent_id' => DB::table('items')->where('name', 'Carbonara')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         DB::table('items')->insert([
@@ -149,8 +149,8 @@ class DevData extends Seeder
             'slug' => 'Spezial',
             'sorting_nr' => 13,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Kleng',
@@ -158,8 +158,8 @@ class DevData extends Seeder
             'sorting_nr' => 14,
             'parent_id' => DB::table('items')->where('name', 'Spezial')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'All-you-can-eat',
@@ -167,8 +167,8 @@ class DevData extends Seeder
             'sorting_nr' => 15,
             'parent_id' => DB::table('items')->where('name', 'Spezial')->first()->id,
             'destination_id' => DB::table('destinations')->where('name', 'Kichen')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         // Drinks
@@ -179,8 +179,8 @@ class DevData extends Seeder
             'sorting_nr' => 1,
             'destination_id' => DB::table('destinations')->where('name', 'Bar')->first()->id,
             'category_id' => DB::table('categories')->where('name', 'Soft Drink')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Fanta',
@@ -189,8 +189,8 @@ class DevData extends Seeder
             'sorting_nr' => 2,
             'destination_id' => DB::table('destinations')->where('name', 'Bar')->first()->id,
             'category_id' => DB::table('categories')->where('name', 'Soft Drink')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Äppeljus',
@@ -199,8 +199,8 @@ class DevData extends Seeder
             'sorting_nr' => 3,
             'destination_id' => DB::table('destinations')->where('name', 'Bar')->first()->id,
             'category_id' => DB::table('categories')->where('name', 'Soft Drink')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Glas Wäisse Wäin',
@@ -209,8 +209,8 @@ class DevData extends Seeder
             'sorting_nr' => 3,
             'destination_id' => DB::table('destinations')->where('name', 'Bar')->first()->id,
             'category_id' => DB::table('categories')->where('name', 'Wäin')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         // Deserts
@@ -220,8 +220,8 @@ class DevData extends Seeder
             'unit_price' => 4,
             'sorting_nr' => 1,
             'destination_id' => DB::table('destinations')->where('name', 'Bar')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
             'name' => 'Crème brûlée',
@@ -229,8 +229,8 @@ class DevData extends Seeder
             'unit_price' => 7,
             'sorting_nr' => 2,
             'destination_id' => DB::table('destinations')->where('name', 'Bar')->first()->id,
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->toDateTimeString(),
+            'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         $waiters = ['Thierry', 'Fränz'];
@@ -246,8 +246,8 @@ class DevData extends Seeder
                 'comment' => $comments[array_rand($comments)],
                 'number' => rand(1,10),
                 'destination_id' => $rnd_destination,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'created_at' => Carbon::now()->toDateTimeString(),
+                'updated_at' => Carbon::now()->toDateTimeString(),
             ]);
 
             // insert 1 to 20 random items to orders
@@ -257,8 +257,8 @@ class DevData extends Seeder
                     'order_id' => $id,
                     'item_id' => DB::table('items')->where('destination_id', $rnd_destination)->inRandomOrder()->first()->id,
                     'quantity' => rand(1,5),
-                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString(),
                 ]);
             }
 
@@ -273,8 +273,8 @@ class DevData extends Seeder
                     DB::table('order_completions')->insert([
                         'order_id' => $id,
                         'category_id' => DB::table('categories')->where('name', 'Food')->first()->id,
-                        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                        'created_at' => Carbon::now()->toDateTimeString(),
+                        'updated_at' => Carbon::now()->toDateTimeString(),
                     ]);
                     break;
                 // 3 = bar done
@@ -282,8 +282,8 @@ class DevData extends Seeder
                     DB::table('order_completions')->insert([
                         'order_id' => $id,
                         'category_id' => DB::table('categories')->where('name', 'Bar')->first()->id,
-                        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                        'created_at' => Carbon::now()->toDateTimeString(),
+                        'updated_at' => Carbon::now()->toDateTimeString(),
                     ]);
                     break;
                 // 4 = all done
@@ -291,14 +291,14 @@ class DevData extends Seeder
                     DB::table('order_completions')->insert([
                         'order_id' => $id,
                         'category_id' => DB::table('categories')->where('name', 'Food')->first()->id,
-                        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                        'created_at' => Carbon::now()->toDateTimeString(),
+                        'updated_at' => Carbon::now()->toDateTimeString(),
                     ]);
                     DB::table('order_completions')->insert([
                         'order_id' => $id,
                         'category_id' => DB::table('categories')->where('name', 'Bar')->first()->id,
-                        'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                        'created_at' => Carbon::now()->toDateTimeString(),
+                        'updated_at' => Carbon::now()->toDateTimeString(),
                     ]);
                     break;
             }*/

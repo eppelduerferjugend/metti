@@ -38,15 +38,21 @@ class OrderController extends Controller
         return $item;
     }
 
-    public function indexAPI()
+    protected function getOrdersWhere($where_array)
     {
-        $orders = Order::with(['items', 'destination'])
+        $orders = Order::where($where_array)
+            ->with(['items', 'destination'])
             ->get();
         foreach($orders as $order_key => $order)
         {
             $orders[$order_key] = self::handleOrderQuantity($order);
         }
         return $orders;
+    }
+
+    public function indexAPI()
+    {
+        return self::getOrdersWhere([]);
     }
 
     public function showAPI($id)
@@ -62,7 +68,7 @@ class OrderController extends Controller
                 'completed_at' => null
             ])
             ->update([
-                'completed_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'completed_at' => Carbon::now()->toDateTimeString()
             ]);
 
         // If order has already been completed, don't go any further
@@ -103,28 +109,30 @@ class OrderController extends Controller
 
     public function incompleteIndexAPI()
     {
-        $orders = Order::where(['completed_at' => null])
-            ->with(['items', 'destination'])
-            ->get();
-        foreach($orders as $order_key => $order)
-        {
-            $orders[$order_key] = self::handleOrderQuantity($order);
-        }
-        return $orders;
+        return self::getOrdersWhere([
+            'completed_at' => null
+        ]);
     }
 
     public function incompleteDestinationAPI($destination)
     {
-        $orders = Order::where([
-                'completed_at' => null,
-                'destination_id' => $destination
-            ])
+        return self::getOrdersWhere([
+            'completed_at' => null,
+            'destination_id' => $destination
+        ]);
+    }
+
+    // provide a unix timestamp to only get the orders that have been updated since
+    public function updatedAfterAPI($time)
+    {
+        $orders = Order::where('updated_at', '>=', Carbon::createFromTimestampUTC($time)->timezone(env('timezone'))->toDateTimeString())
             ->with(['items', 'destination'])
             ->get();
         foreach($orders as $order_key => $order)
         {
             $orders[$order_key] = self::handleOrderQuantity($order);
         }
+
         return $orders;
     }
 }
