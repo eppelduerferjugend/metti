@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class OrderController extends Controller
 {
     // Handles quantities for items of an order and calculates order price
-    protected function handleOrderQuantity($order)
+    protected function beautifyOrders($order)
     {
         $order['order_price'] = 0;
         $order['order_quantity'] = 0;
@@ -21,6 +21,8 @@ class OrderController extends Controller
             $order['order_price'] += $item['price'];
             $order['order_quantity'] += $item['quantity'];
         }
+        $order['created_at_u'] = Carbon::parse($order['created_at'])->timestamp;
+        $order['updated_at_u'] = Carbon::parse($order['updated_at'])->timestamp;
         return $order;
     }
 
@@ -45,7 +47,7 @@ class OrderController extends Controller
             ->get();
         foreach($orders as $order_key => $order)
         {
-            $orders[$order_key] = self::handleOrderQuantity($order);
+            $orders[$order_key] = self::beautifyOrders($order);
         }
         return $orders;
     }
@@ -57,7 +59,7 @@ class OrderController extends Controller
 
     public function showAPI($id)
     {
-        return self::handleOrderQuantity(Order::with(['items', 'destination'])
+        return self::beautifyOrders(Order::with(['items', 'destination'])
             ->findOrFail($id));
     }
 
@@ -76,7 +78,7 @@ class OrderController extends Controller
             //return $result;
         }
 
-        $order = self::handleOrderQuantity(Order::with(['items', 'destination'])
+        $order = self::beautifyOrders(Order::with(['items', 'destination'])
             ->findOrFail($id));
 
         $point = [
@@ -130,7 +132,7 @@ class OrderController extends Controller
             ->get();
         foreach($orders as $order_key => $order)
         {
-            $orders[$order_key] = self::handleOrderQuantity($order);
+            $orders[$order_key] = self::beautifyOrders($order);
         }
 
         return $orders;
