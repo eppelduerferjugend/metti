@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "Metti Spaghetti - Eppelduerfer Spaghettisfest",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Bestellware fir d'Eppelduerfer Spaghettisfest.",
     "keywords": [
         "framework",
         "laravel"

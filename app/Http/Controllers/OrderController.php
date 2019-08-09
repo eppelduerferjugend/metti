@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\OrderItem;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -12,11 +13,13 @@ class OrderController extends Controller
     protected function handleOrderQuantity($order)
     {
         $order['order_price'] = 0;
+        $order['order_quantity'] = 0;
         foreach($order['items'] as $item_key => $item)
         {
             $item = self::handledItemQuantity($item);
             $order['items'][$item_key] = $item;
             $order['order_price'] += $item['price'];
+            $order['order_quantity'] += $item['quantity'];
         }
         return $order;
     }
@@ -50,9 +53,46 @@ class OrderController extends Controller
         return self::handleOrderQuantity(Order::with(['items', 'destination'])->findOrFail($id));
     }
 
-    public function completeAPI($id, $categories)
+    public function completeAPI($id)
     {
-        return [$id, explode(',',$category)];
+        $result = Order::where([
+                'id' => $id,
+                'completed_at' => null
+            ])
+            ->update([
+                'completed_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+
+        // If order has already been completed, don't go any further
+        if ($result === 0){
+            //return $result;
+        }
+
+        $order = self::handleOrderQuantity(Order::with(['items', 'destination'])->findOrFail($id));
+
+        $point = [
+            new \InfluxDB\Point(
+                'orders',
+                null, // some value for some_name
+                [], // array of string values
+                [
+                    'status' => 'completed',
+                    'destination' => $order['destination']['name'],
+                    'order_price' => $order['order_price'],
+                    'waiter' => $order['waiter'],
+                    'table' => $order['table'],
+                    'quantity' => $order['order_quantity']
+                ]
+            )
+        ];
+        try {
+            \Influx::writePoints($point);
+        } catch (\InfluxDB\Exception $e) {
+            //respond::: 'NO INFLUX'.$e->getmessage();
+            //TODO: send email, no error as not important
+        }
+
+        return $result;
     }
 
 

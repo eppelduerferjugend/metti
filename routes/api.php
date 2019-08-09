@@ -30,9 +30,10 @@ Route::get('/order/{id}', 'OrderController@showAPI')->where('id', '[0-9]+');
 Route::get('/order/updated_after/{updated_time}', 'OrderController@updatedAfterAPI');
 Route::get('/order/table/{search_string}', 'OrderController@tableStatusAPI'); // get current orders of table
 
-Route::get('/order/complete/{id}/{category}', 'OrderController@completeAPI')->where(['id', '[0-9]+'],['category', '[A-Za-z\,]+']);
-
 Route::get('/order/incomplete', 'OrderController@incompleteIndexAPI');
-Route::get('/order/incomplete/{categories}', 'OrderController@incompleteCategoriesAPI');
+Route::get('/order/incomplete/{destination}', 'OrderController@incompleteDestinationAPI');
+
+Route::get('/order/complete/{id}', 'OrderController@completeAPI')->where(['id', '[0-9]+']);
+//Route::get('/order/complete/{id}/{destination}', 'OrderController@completeAPI')->where(['id', '[0-9]+'],['category', '[A-Za-z\,]+']);
 
 Route::get('/stats', 'StatisticsController@IndexAPI');
