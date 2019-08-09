@@ -16,28 +16,28 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('/destination', 'DestinationController@indexAPI'); // DONE
-Route::get('/destination/{id}', 'DestinationController@showAPI')->where('id', '[0-9]+'); // DONE
+Route::get('/destination', 'DestinationController@indexAPI');
+Route::get('/destination/{id}', 'DestinationController@showAPI')->where('id', '[0-9]+');
 
-Route::get('/category', 'CategoryController@indexAPI'); // DONE
-Route::get('/category/{id}', 'CategoryController@showAPI')->where('id', '[0-9]+'); // DONE
+Route::get('/category', 'CategoryController@indexAPI');
+Route::get('/category/{id}', 'CategoryController@showAPI')->where('id', '[0-9]+');
 
-Route::get('/item', 'ItemController@IndexAPI'); // DONE
-Route::get('/item/{id}', 'ItemController@showAPI')->where('id', '[0-9]+'); // DONE
+Route::get('/item', 'ItemController@IndexAPI');
+Route::get('/item/{id}', 'ItemController@showAPI')->where('id', '[0-9]+');
 
-Route::get('/order', 'OrderController@indexAPI'); // DONE
-Route::get('/order/{id}', 'OrderController@showAPI')->where('id', '[0-9]+'); // DONE
-Route::get('/order/updated_after/{updated_time}', 'OrderController@updatedAfterAPI'); // DONE
-Route::get('/order/updated_after/{destination}/{updated_time}', 'OrderController@updatedAfterByDestinationAPI'); // DONE
+Route::get('/order', 'OrderController@indexAPI');
+Route::post('/order', 'OrderController@createAPI');
+Route::get('/order/{id}', 'OrderController@showAPI')->where('id', '[0-9]+');
+Route::get('/order/updated_after/{updated_time}', 'OrderController@updatedAfterAPI');
+Route::get('/order/updated_after/{destination}/{updated_time}', 'OrderController@updatedAfterByDestinationAPI');
 
-Route::get('/order/incomplete', 'OrderController@incompleteIndexAPI'); // DONE
-Route::get('/order/incomplete/{destination}', 'OrderController@incompleteDestinationAPI'); // DONE
+Route::get('/order/incomplete', 'OrderController@incompleteIndexAPI');
+Route::get('/order/incomplete/{destination}', 'OrderController@incompleteDestinationAPI');
 
-Route::get('/order/complete/{id}', 'OrderController@completeAPI')->where(['id', '[0-9]+']); // DONE
-Route::post('/order/complete', 'OrderController@completeArrayAPI'); // DONE
-//Route::get('/order/complete/{id}/{destination}', 'OrderController@completeAPI')->where(['id', '[0-9]+'],['category', '[A-Za-z\,]+']);
+Route::get('/order/complete/{id}', 'OrderController@completeAPI')->where(['id', '[0-9]+']);
+Route::post('/order/complete', 'OrderController@completeArrayAPI');
 
-Route::get('/table', 'OrderController@tableIndexAPI'); // DONE
-Route::get('/table/{search_string}', 'OrderController@tableShowAPI'); // DONE
+Route::get('/table', 'OrderController@tableIndexAPI');
+Route::get('/table/{search_string}', 'OrderController@tableShowAPI');
 
 Route::get('/stats', 'StatisticsController@IndexAPI');
