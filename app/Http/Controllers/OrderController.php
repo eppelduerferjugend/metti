@@ -123,13 +123,13 @@ class OrderController extends Controller
                     new \InfluxDB\Point(
                         'orders',
                         null, // some value for some_name
-                        [], // array of string values
                         [
-                            'status' => 'placed',
                             'destination' => $created_order->destination->name,
-                            'order_price' => $created_order->order_price,
-                            'waiter' => $created_order->waiter,
+                            'status' => 'placed',
                             'table' => $created_order->table,
+                        ], // tagged values
+                        [
+                            'order_price' => $created_order->order_price,
                             'quantity' => $created_order->order_quantity
                         ]
                     )
@@ -168,13 +168,13 @@ class OrderController extends Controller
                 new \InfluxDB\Point(
                     'orders',
                     null, // some value for some_name
-                    [], // array of string values
                     [
-                        'status' => 'completed',
                         'destination' => $order['destination']['name'],
-                        'order_price' => $order['order_price'],
-                        'waiter' => $order['waiter'],
+                        'status' => 'completed',
                         'table' => $order['table'],
+                    ], // tagged values
+                    [
+                        'order_price' => $order['order_price'],
                         'quantity' => $order['order_quantity']
                     ]
                 )
@@ -221,13 +221,13 @@ class OrderController extends Controller
                 new \InfluxDB\Point(
                     'orders',
                     null, // some value for some_name
-                    [], // array of string values
                     [
-                        'status' => 'reopened',
                         'destination' => $order['destination']['name'],
+                        'status' => 'reopened',
+                        'table' => $order['table']
+                    ], // tagged values
+                    [
                         'order_price' => $order['order_price'],
-                        'waiter' => $order['waiter'],
-                        'table' => $order['table'],
                         'quantity' => $order['order_quantity']
                     ]
                 )
