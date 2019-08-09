@@ -34,6 +34,7 @@ Route::get('/order/incomplete', 'OrderController@incompleteIndexAPI'); // DONE
 Route::get('/order/incomplete/{destination}', 'OrderController@incompleteDestinationAPI'); // DONE
 
 Route::get('/order/complete/{id}', 'OrderController@completeAPI')->where(['id', '[0-9]+']); // DONE
+Route::post('/order/complete', 'OrderController@completeArrayAPI'); // DONE
 //Route::get('/order/complete/{id}/{destination}', 'OrderController@completeAPI')->where(['id', '[0-9]+'],['category', '[A-Za-z\,]+']);
 
 Route::get('/table', 'OrderController@tableIndexAPI'); // DONE

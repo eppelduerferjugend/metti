@@ -74,7 +74,7 @@ class OrderController extends Controller
 
         // If order has already been completed, don't go any further
         if ($result === 0){
-            //return $result;
+            return $result;
         }
 
         $order = self::beautifyOrders(Order::with(['items', 'destination'])
@@ -102,6 +102,17 @@ class OrderController extends Controller
             //TODO: send email, no error as not important
         }
 
+        return $result;
+    }
+
+    public function completeArrayAPI(Request $request)
+    {
+        $completed_orders = json_decode($request->getContent());
+        $result = [];
+        foreach($completed_orders as $completed_order)
+        {
+            $result[$completed_order] = self::completeAPI($completed_order);
+        }
         return $result;
     }
 
