@@ -34,10 +34,10 @@ Route::get('/order/updated_after/{destination}/{updated_time}', 'OrderController
 Route::get('/order/incomplete', 'OrderController@incompleteIndexAPI');
 Route::get('/order/incomplete/{destination}', 'OrderController@incompleteDestinationAPI');
 
-Route::get('/order/complete/{id}', 'OrderController@completeAPI')->where(['id', '[0-9]+']);
+Route::post('/order/complete/{id}', 'OrderController@completeAPI')->where(['id', '[0-9]+']);
 Route::post('/order/complete', 'OrderController@completeArrayAPI');
 
-Route::get('/order/reopen/{id}', 'OrderController@reOpenAPI')->where(['id', '[0-9]+']);
+Route::post('/order/reopen/{id}', 'OrderController@reOpenAPI')->where(['id', '[0-9]+']);
 
 Route::get('/table', 'OrderController@tableIndexAPI');
 Route::get('/table/{search_string}', 'OrderController@tableShowAPI');
