@@ -33,7 +33,7 @@ Route::get('/order/table/{search_string}', 'OrderController@tableStatusAPI'); //
 Route::get('/order/incomplete', 'OrderController@incompleteIndexAPI');
 Route::get('/order/incomplete/{destination}', 'OrderController@incompleteDestinationAPI');
 
-Route::get('/order/complete/{id}', 'OrderController@completeAPI')->where(['id', '[0-9]+']);
+Route::get('/order/complete/{id}', 'OrderController@completeAPI')->where(['id', '[0-9]+']); // DONE
 //Route::get('/order/complete/{id}/{destination}', 'OrderController@completeAPI')->where(['id', '[0-9]+'],['category', '[A-Za-z\,]+']);
 
 Route::get('/stats', 'StatisticsController@IndexAPI');

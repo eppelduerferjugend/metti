@@ -40,7 +40,8 @@ class OrderController extends Controller
 
     public function indexAPI()
     {
-        $orders = Order::with(['items', 'destination'])->get();
+        $orders = Order::with(['items', 'destination'])
+            ->get();
         foreach($orders as $order_key => $order)
         {
             $orders[$order_key] = self::handleOrderQuantity($order);
@@ -50,7 +51,8 @@ class OrderController extends Controller
 
     public function showAPI($id)
     {
-        return self::handleOrderQuantity(Order::with(['items', 'destination'])->findOrFail($id));
+        return self::handleOrderQuantity(Order::with(['items', 'destination'])
+            ->findOrFail($id));
     }
 
     public function completeAPI($id)
@@ -68,7 +70,8 @@ class OrderController extends Controller
             //return $result;
         }
 
-        $order = self::handleOrderQuantity(Order::with(['items', 'destination'])->findOrFail($id));
+        $order = self::handleOrderQuantity(Order::with(['items', 'destination'])
+            ->findOrFail($id));
 
         $point = [
             new \InfluxDB\Point(
@@ -98,8 +101,30 @@ class OrderController extends Controller
 
     //Only insert uppercase table numbers "U8"
 
-    public function incompleteCategoriesAPI($categories)
+    public function incompleteIndexAPI()
     {
-        return Order::with(['completions'])->get();
+        $orders = Order::where(['completed_at' => null])
+            ->with(['items', 'destination'])
+            ->get();
+        foreach($orders as $order_key => $order)
+        {
+            $orders[$order_key] = self::handleOrderQuantity($order);
+        }
+        return $orders;
+    }
+
+    public function incompleteDestinationAPI($destination)
+    {
+        $orders = Order::where([
+                'completed_at' => null,
+                'destination_id' => $destination
+            ])
+            ->with(['items', 'destination'])
+            ->get();
+        foreach($orders as $order_key => $order)
+        {
+            $orders[$order_key] = self::handleOrderQuantity($order);
+        }
+        return $orders;
     }
 }
