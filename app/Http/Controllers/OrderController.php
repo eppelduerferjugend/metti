@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
-use App\OrderItem;
 use Carbon\Carbon;
 
 class OrderController extends Controller
@@ -16,7 +15,7 @@ class OrderController extends Controller
         $order['order_quantity'] = 0;
         foreach($order['items'] as $item_key => $item)
         {
-            $item = self::handledItemQuantity($item);
+            $item = self::handleItemQuantity($item);
             $order['items'][$item_key] = $item;
             $order['order_price'] += $item['price'];
             $order['order_quantity'] += $item['quantity'];
@@ -27,7 +26,7 @@ class OrderController extends Controller
     }
 
     // Removes the pivot object and calculates the total price for an item
-    protected function handledItemQuantity($item)
+    protected function handleItemQuantity($item)
     {
         $item['quantity'] = $item['pivot']['quantity'];
         unset($item['pivot']);
@@ -152,4 +151,21 @@ class OrderController extends Controller
         return $orders;
     }
 
+    public function tableIndexAPI()
+    {
+        $orders = Order::distinct()->get('table');
+        $result = [];
+        foreach($orders as $order)
+        {
+            $result[] = $order['table'];
+        }
+        return $result;
+    }
+
+    public function tableShowAPI($table)
+    {
+        return self::getOrdersWhere([
+            'table' => $table
+        ]);
+    }
 }
