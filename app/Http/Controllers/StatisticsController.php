@@ -5,33 +5,81 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\OrderItem;
 use App\Category;
+use App\Destination;
+use App\Item;
 use Illuminate\Support\Facades\DB;
+use InfluxDB;
 
 class StatisticsController extends Controller
 {
 
-    private function generateStatsArray($items)
+    protected function destinationsArray()
+    {
+        $destinationsRaw = Destination::get();
+        $destinations = [];
+        foreach($destinationsRaw as $destination)
+        {
+            $destinations[$destination->id] = $destination->name;
+        }
+        return $destinations;
+    }
+
+    protected function itemsArray()
+    {
+        $itemsRaw = Item::with('parent')->get();
+        $items = [];
+        foreach($itemsRaw as $item)
+        {
+            if ($item->parent['name']){
+                $items[$item->id] = $item->parent['name'].'-'.$item->name;
+            } else {
+                $items[$item->id] = $item->name;
+            }
+        }
+        return $items;
+    }
+
+    private function generateStatsArray($items, $destinationsName, $itemsName)
     {
         $result = ['total' => null];
 
         foreach($items as $item)
         {
-            $category_id = $item->category_id;
+            $destination_id = $item->destination_id;
             // Check if Category exists
-            if (!array_key_exists($category_id,$result))
+            if (!array_key_exists($destinationsName[$destination_id],$result))
             {
-                $result[$category_id] = ['total' => null];
+                $result[$destinationsName[$destination_id]] = ['total' => null];
             }
 
             // Check if item exists
-            if (!array_key_exists($item->item_id,$result[$category_id]))
+            if (!array_key_exists($itemsName[$item->item_id],$result[$destinationsName[$destination_id]]))
             {
-                $result[$category_id][$item->item_id] = 0;
+                $result[$destinationsName[$destination_id]][$itemsName[$item->item_id]] = 0;
             }
 
-            $result[$category_id][$item->item_id] += $item->quantity;
-            $result[$category_id]['total'] += $item->quantity;
+            $result[$destinationsName[$destination_id]][$itemsName[$item->item_id]] += $item->quantity;
+            $result[$destinationsName[$destination_id]]['total'] += $item->quantity;
             $result['total'] += $item->quantity;
+        }
+
+        return $result;
+    }
+
+    protected function generateTableStats($items, $destinationsName)
+    {
+        $result = [];
+        foreach($items as $item)
+        {
+            if (!array_key_exists($destinationsName[$item->destination_id], $result))
+            {
+                $result[$destinationsName[$item->destination_id]] = [];
+            }
+            if (!array_key_exists($item->table, $result[$destinationsName[$item->destination_id]]))
+            {
+                $result[$destinationsName[$item->destination_id]][$item->table] = null;
+            }
+            $result[$destinationsName[$item->destination_id]][$item->table] += $item->quantity;
         }
 
         return $result;
@@ -39,23 +87,105 @@ class StatisticsController extends Controller
 
     public function IndexAPI()
     {
-        $undone_order_items = DB::table('order_items')
+        $placed_order_items = DB::table('order_items')
             ->join('orders', function($join) {
-                $join->on('order_items.order_id', '=', 'orders.id')
-                    ->WhereNull('orders.completed_at');
+                $join->on('order_items.order_id', '=', 'orders.id');
             })
             ->get();
 
-        $completed_order_items = DB::table('order_items')
-            ->join('orders', function($join) {
-                $join->on('order_items.order_id', '=', 'orders.id')
-                    ->WhereNotNull('orders.completed_at');
-            })
-            ->get();
+         $undone_order_items = DB::table('order_items')
+             ->join('orders', function($join) {
+                 $join->on('order_items.order_id', '=', 'orders.id')
+                     ->WhereNull('orders.completed_at');
+             })
+             ->get();
+
+         $completed_order_items = DB::table('order_items')
+             ->join('orders', function($join) {
+                 $join->on('order_items.order_id', '=', 'orders.id')
+                     ->WhereNotNull('orders.completed_at');
+             })
+             ->get();
+
+        $destinationsName = self::destinationsArray();
+        $itemsName = self::itemsArray();
 
         return [
-            'queue' => self::generateStatsArray($undone_order_items),
-            'completed' => self::generateStatsArray($completed_order_items)
+            'orders' => [
+                'placed' => self::generateStatsArray($placed_order_items, $destinationsName, $itemsName),
+                'queue' => self::generateStatsArray($undone_order_items, $destinationsName, $itemsName),
+                'completed' => self::generateStatsArray($completed_order_items, $destinationsName, $itemsName),
+            ],
+            'tables' => self::generateTableStats($placed_order_items, $destinationsName)
         ];
+    }
+
+    public function pushToInflux()
+    {
+        $stats = self::IndexAPI();
+
+        $influxPoints = [];
+
+        foreach($stats['orders'] as $status => $destinations)
+        {
+            foreach($destinations as $destination => $items)
+            {
+                if ($destination === 'total')
+                {
+                    continue;
+                }
+                foreach($items as $item => $quantity)
+                {
+                    $influxPoints[] = self::prepareInfluxPoint(
+                        'statistics',
+                        [
+                            'type' => 'order',
+                            'destination' => $destination,
+                            'status' => $status,
+                            'item' => $item
+                        ],
+                        [
+                            'quantity' => $quantity
+                        ]
+                    );
+                }
+            }
+        }
+
+        foreach($stats['tables'] as $destination => $tables)
+        {
+            foreach($tables as $tableName => $quantity)
+            {
+                $influxPoints[] = self::prepareInfluxPoint(
+                    'statistics',
+                    [
+                        'type' => 'table',
+                        'destination' => $destination,
+                        'table' => $tableName
+                    ],
+                    [
+                        'quantity' => $quantity
+                    ]
+                );
+            }
+        }
+
+        return self::sendToInflux($influxPoints);
+    }
+
+    protected function prepareInfluxPoint($table, $tagged, $values)
+    {
+        return new InfluxDB\Point( $table, null, $tagged, $values );
+    }
+
+    protected function sendToInflux($points)
+    {
+        try {
+            \Influx::writePoints($points);
+        } catch (InfluxDB\Exception $e) {
+            //respond::: 'NO INFLUX'.$e->getmessage();
+            return $e->getmessage();
+            //TODO: send email, no error as not important
+        }
     }
 }

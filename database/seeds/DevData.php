@@ -237,7 +237,7 @@ class DevData extends Seeder
         $comments = ['Eng hallef portioun', 'All Zoossen', '','','', 'Bolo mat Carbonara'];
 
         // insert random orders
-        for ($i=0;$i<7;$i++)
+        for ($i=0;$i<700;$i++)
         {
             $rnd_destination = DB::table('destinations')->inRandomOrder()->first()->id;
             $id = DB::table('orders')->insertGetId([
@@ -256,52 +256,11 @@ class DevData extends Seeder
                 DB::table('order_items')->insert([
                     'order_id' => $id,
                     'item_id' => DB::table('items')->where('destination_id', $rnd_destination)->inRandomOrder()->first()->id,
-                    'quantity' => rand(1,5),
+                    'quantity' => 1,//rand(1,5),
                     'created_at' => Carbon::now()->toDateTimeString(),
                     'updated_at' => Carbon::now()->toDateTimeString(),
                 ]);
             }
-
-            // set random completion statuses for the just generated orders
-            /*switch(rand(1,5))
-            {
-                // 1 = no completion yet
-                case 1:
-                    break;
-                // 2 = kitchen done
-                case 2:
-                    DB::table('order_completions')->insert([
-                        'order_id' => $id,
-                        'category_id' => DB::table('categories')->where('name', 'Food')->first()->id,
-                        'created_at' => Carbon::now()->toDateTimeString(),
-                        'updated_at' => Carbon::now()->toDateTimeString(),
-                    ]);
-                    break;
-                // 3 = bar done
-                case 3:
-                    DB::table('order_completions')->insert([
-                        'order_id' => $id,
-                        'category_id' => DB::table('categories')->where('name', 'Bar')->first()->id,
-                        'created_at' => Carbon::now()->toDateTimeString(),
-                        'updated_at' => Carbon::now()->toDateTimeString(),
-                    ]);
-                    break;
-                // 4 = all done
-                case 4:
-                    DB::table('order_completions')->insert([
-                        'order_id' => $id,
-                        'category_id' => DB::table('categories')->where('name', 'Food')->first()->id,
-                        'created_at' => Carbon::now()->toDateTimeString(),
-                        'updated_at' => Carbon::now()->toDateTimeString(),
-                    ]);
-                    DB::table('order_completions')->insert([
-                        'order_id' => $id,
-                        'category_id' => DB::table('categories')->where('name', 'Bar')->first()->id,
-                        'created_at' => Carbon::now()->toDateTimeString(),
-                        'updated_at' => Carbon::now()->toDateTimeString(),
-                    ]);
-                    break;
-            }*/
         }
     }
 }
