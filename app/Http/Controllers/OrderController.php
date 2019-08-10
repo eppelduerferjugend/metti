@@ -8,6 +8,7 @@ use App\OrderItem;
 use Carbon\Carbon;
 use App\Destination;
 use Illuminate\Support\Facades\DB;
+use InfluxDB;
 
 class OrderController extends Controller
 {
@@ -95,6 +96,8 @@ class OrderController extends Controller
         $destinations = self::getDestinationsArray();
 
         $result = [];
+        $influxPoints = [];
+
         foreach($orders as $order)
         {
             $created_order = Order::create([
@@ -107,40 +110,37 @@ class OrderController extends Controller
 
             foreach($order->items as $item)
             {
-                OrderItem::create([
-                    'order_id' => $created_order->id,
-                    'item_id' => $item->id,
-                    'quantity' => $item->quantity
-                ]);
+                if ($item->quantity > 0)
+                {
+                    OrderItem::create([
+                        'order_id' => $created_order->id,
+                        'item_id' => $item->id,
+                        'quantity' => $item->quantity
+                    ]);
+                }
             }
 
             $created_order = self::beautifyOrders(Order::with(['items', 'destination'])
             ->where('id', $created_order->id)
             ->first());
 
-            try {
-                \Influx::writePoints([
-                    new \InfluxDB\Point(
-                        'orders',
-                        null, // some value for some_name
-                        [
-                            'destination' => $created_order->destination->name,
-                            'status' => 'placed',
-                            'table' => $created_order->table,
-                        ], // tagged values
-                        [
-                            'order_price' => $created_order->order_price,
-                            'quantity' => $created_order->order_quantity
-                        ]
-                    )
-                ]);
-            } catch (\InfluxDB\Exception $e) {
-                //respond::: 'NO INFLUX'.$e->getmessage();
-                //TODO: send email, no error as not important
-            }
+            $influxPoints[] = self::prepareInfluxPoint(
+                'orders',
+                [
+                    'destination' => $created_order->destination->name,
+                    'status' => 'placed',
+                    'table' => $created_order->table,
+                ],
+                [
+                    'order_price' => (float) $created_order->order_price,
+                    'quantity' => $created_order->order_quantity
+                ]
+            );
 
             $result[] = $created_order;
         }
+
+        self::sendToInflux($influxPoints);
 
         return $result;
     }
@@ -163,26 +163,20 @@ class OrderController extends Controller
         $order = self::beautifyOrders(Order::with(['items', 'destination'])
             ->findOrFail($id));
 
-        try {
-            \Influx::writePoints([
-                new \InfluxDB\Point(
-                    'orders',
-                    null, // some value for some_name
-                    [
-                        'destination' => $order['destination']['name'],
-                        'status' => 'completed',
-                        'table' => $order['table'],
-                    ], // tagged values
-                    [
-                        'order_price' => $order['order_price'],
-                        'quantity' => $order['order_quantity']
-                    ]
-                )
-            ]);
-        } catch (\InfluxDB\Exception $e) {
-            //respond::: 'NO INFLUX'.$e->getmessage();
-            //TODO: send email, no error as not important
-        }
+        self::sendToInflux(
+            self::prepareInfluxPoint(
+                'orders',
+                [
+                    'destination' => $order['destination']['name'],
+                    'status' => 'completed',
+                    'table' => $order['table'],
+                ], // tagged values
+                [
+                    'order_price' => (float) $order['order_price'],
+                    'quantity' => $order['order_quantity']
+                ]
+            )
+        );
 
         return $result;
     }
@@ -216,26 +210,20 @@ class OrderController extends Controller
         $order = self::beautifyOrders(Order::with(['items', 'destination'])
             ->findOrFail($id));
 
-        try {
-            \Influx::writePoints([
-                new \InfluxDB\Point(
-                    'orders',
-                    null, // some value for some_name
-                    [
-                        'destination' => $order['destination']['name'],
-                        'status' => 'reopened',
-                        'table' => $order['table']
-                    ], // tagged values
-                    [
-                        'order_price' => $order['order_price'],
-                        'quantity' => $order['order_quantity']
-                    ]
-                )
-            ]);
-        } catch (\InfluxDB\Exception $e) {
-            //respond::: 'NO INFLUX'.$e->getmessage();
-            //TODO: send email, no error as not important
-        }
+        self::sendToInflux(
+            self::prepareInfluxPoint(
+                'orders',
+                [
+                    'destination' => $order['destination']['name'],
+                    'status' => 'reopened',
+                    'table' => $order['table']
+                ],
+                [
+                    'order_price' => (float) $order['order_price'],
+                    'quantity' => $order['order_quantity']
+                ]
+            )
+        );
 
         return $result;
     }
@@ -301,5 +289,21 @@ class OrderController extends Controller
         return self::getOrdersWhere([
             'table' => $table
         ]);
+    }
+
+    protected function prepareInfluxPoint($table, $tagged, $values)
+    {
+        return new InfluxDB\Point( $table, null, $tagged, $values );
+    }
+
+    protected function sendToInflux($points)
+    {
+        try {
+            \Influx::writePoints($points);
+        } catch (InfluxDB\Exception $e) {
+            //respond::: 'NO INFLUX'.$e->getmessage();
+            //return $e->getmessage();
+            //TODO: send email, no error as not important
+        }
     }
 }
