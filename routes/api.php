@@ -13,9 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 Route::get('/destination', 'DestinationController@indexAPI');
 Route::get('/destination/{id}', 'DestinationController@showAPI')->where('id', '[0-9]+');
 
