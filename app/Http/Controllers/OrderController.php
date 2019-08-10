@@ -299,7 +299,7 @@ class OrderController extends Controller
     protected function sendToInflux($points)
     {
         try {
-            \Influx::writePoints($points);
+            //\Influx::writePoints($points);
         } catch (InfluxDB\Exception $e) {
             //respond::: 'NO INFLUX'.$e->getmessage();
             //return $e->getmessage();
