@@ -50,9 +50,14 @@ class StatisticsController extends Controller
             if (!array_key_exists($destinationsName[$destination_id],$result))
             {
                 $result[$destinationsName[$destination_id]] = ['total' => null];
+                if ($destinationsName[$destination_id] === 'kitchen')
+                {
+                    $result[$destinationsName[$destination_id]]['total-all-you-can-eat'] = null;
+                    $result[$destinationsName[$destination_id]]['total-kleng'] = null;
+                }
             }
 
-            // Check if item exists
+            // Check if item exists in array
             if (!array_key_exists($itemsName[$item->item_id],$result[$destinationsName[$destination_id]]))
             {
                 $result[$destinationsName[$destination_id]][$itemsName[$item->item_id]] = 0;
@@ -60,6 +65,16 @@ class StatisticsController extends Controller
 
             $result[$destinationsName[$destination_id]][$itemsName[$item->item_id]] += $item->quantity;
             $result[$destinationsName[$destination_id]]['total'] += $item->quantity;
+
+            if (strpos($itemsName[$item->item_id], 'All-you-can-eat') !== false)
+            {
+                $result[$destinationsName[$destination_id]]['total-all-you-can-eat'] += $item->quantity;
+            }
+            else if (strpos($itemsName[$item->item_id], 'Kleng') !== false)
+            {
+                $result[$destinationsName[$destination_id]]['total-kleng'] += $item->quantity;
+            }
+
             $result['total'] += $item->quantity;
         }
 
@@ -182,6 +197,7 @@ class StatisticsController extends Controller
     {
         try {
             \Influx::writePoints($points);
+            echo 1;
         } catch (InfluxDB\Exception $e) {
             //respond::: 'NO INFLUX'.$e->getmessage();
             return $e->getmessage();

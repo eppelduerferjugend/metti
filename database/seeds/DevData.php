@@ -237,7 +237,7 @@ class DevData extends Seeder
         $comments = ['Eng hallef portioun', 'All Zoossen', '','','', 'Bolo mat Carbonara'];
 
         // insert random orders
-        for ($i=0;$i<700;$i++)
+        for ($i=0;$i<7;$i++)
         {
             $rnd_destination = DB::table('destinations')->inRandomOrder()->first()->id;
             $id = DB::table('orders')->insertGetId([
@@ -251,7 +251,7 @@ class DevData extends Seeder
             ]);
 
             // insert 1 to 20 random items to orders
-            for ($j=0;$j<rand(1,20);$j++)
+            for ($j=0;$j<rand(1,5);$j++)
             {
                 DB::table('order_items')->insert([
                     'order_id' => $id,
