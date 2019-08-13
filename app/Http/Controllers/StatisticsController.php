@@ -50,7 +50,7 @@ class StatisticsController extends Controller
             if (!array_key_exists($destinationsName[$destination_id],$result))
             {
                 $result[$destinationsName[$destination_id]] = ['total' => null];
-                if ($destinationsName[$destination_id] === 'kitchen')
+                if ($destinationsName[$destination_id] === 'Kichen')
                 {
                     $result[$destinationsName[$destination_id]]['total-all-you-can-eat'] = null;
                     $result[$destinationsName[$destination_id]]['total-kleng'] = null;
@@ -66,11 +66,11 @@ class StatisticsController extends Controller
             $result[$destinationsName[$destination_id]][$itemsName[$item->item_id]] += $item->quantity;
             $result[$destinationsName[$destination_id]]['total'] += $item->quantity;
 
-            if (strpos($itemsName[$item->item_id], 'All-you-can-eat') !== false)
+            if (strpos(strtolower($itemsName[$item->item_id]), 'all-you-can-eat') !== false)
             {
                 $result[$destinationsName[$destination_id]]['total-all-you-can-eat'] += $item->quantity;
             }
-            else if (strpos($itemsName[$item->item_id], 'Kleng') !== false)
+            else if (strpos(strtolower($itemsName[$item->item_id]), 'kleng') !== false)
             {
                 $result[$destinationsName[$destination_id]]['total-kleng'] += $item->quantity;
             }
