@@ -89,6 +89,17 @@ class OrderController extends Controller
         return $order_count + 1;
     }
 
+    protected function currentlyServingNumber($destination)
+    {
+        return DB::table('order_items')
+            ->join('orders', function($join) use ($destination) {
+                $join->on('order_items.order_id', '=', 'orders.id')
+                    ->WhereNotNull('orders.completed_at')
+                    ->Where('orders.destination_id', $destination);
+            })
+            ->sum('quantity');
+    }
+
     // Order creation
     public function createAPI(Request $request)
     {
@@ -141,6 +152,12 @@ class OrderController extends Controller
         }
 
         self::sendToInflux($influxPoints);
+
+        foreach($result as $key => $created_order)
+        {
+            $created_order['currentlyServing'] = self::currentlyServingNumber($created_order->destination->id);
+            $result[$key] = $created_order;
+        }
 
         return $result;
     }
