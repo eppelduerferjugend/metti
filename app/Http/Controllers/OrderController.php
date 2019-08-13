@@ -103,7 +103,7 @@ class OrderController extends Controller
             $created_order = Order::create([
                 'destination_id' => $destinations[$order->destination],
                 'waiter' => $order->waiter,
-                'table' => $order->table,
+                'table' => strtoupper($order->table),
                 'comment' => $order->comment,
                 'number' => self::getNextOrderNumber($destinations[$order->destination])
             ]);
