@@ -265,7 +265,7 @@ class OrderController extends Controller
     // provide a unix timestamp to only get the orders that have been updated since
     public function updatedAfterAPI($time)
     {
-        $orders = Order::where('updated_at', '>=', Carbon::createFromTimestampUTC($time)->timezone(env('timezone'))->toDateTimeString())
+        $orders = Order::where('updated_at', '>', Carbon::createFromTimestampUTC($time)->timezone(env('timezone'))->toDateTimeString())
             ->with(['items', 'destination'])
             ->get();
         foreach($orders as $order_key => $order)
@@ -278,7 +278,7 @@ class OrderController extends Controller
 
     public function updatedAfterByDestinationAPI($destination, $time)
     {
-        $orders = Order::where('updated_at', '>=', Carbon::createFromTimestampUTC($time)->timezone(env('timezone'))->toDateTimeString())
+        $orders = Order::where('updated_at', '>', Carbon::createFromTimestampUTC($time)->timezone(env('timezone'))->toDateTimeString())
             ->where('destination_id', $destination)
             ->with(['items', 'destination'])
             ->get();
