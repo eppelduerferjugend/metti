@@ -50,7 +50,7 @@ class StatisticsController extends Controller
             if (!array_key_exists($destinationsName[$destination_id],$result))
             {
                 $result[$destinationsName[$destination_id]] = ['total' => null];
-                if ($destinationsName[$destination_id] === 'Kichen')
+                if ($destinationsName[$destination_id] === 'kitchen')
                 {
                     $result[$destinationsName[$destination_id]]['total-all-you-can-eat'] = null;
                     $result[$destinationsName[$destination_id]]['total-kleng'] = null;

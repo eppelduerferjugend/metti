@@ -54,7 +54,7 @@ class DevData extends Seeder
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
-            'name' => 'All-you-can-eat',
+            'name' => 'all-you-can-eat',
             'slug' => 'Grouss',
             'sorting_nr' => 3,
             'parent_id' => DB::table('items')->where('name', 'Bolognaise')->first()->id,
@@ -81,7 +81,7 @@ class DevData extends Seeder
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
-            'name' => 'All-you-can-eat',
+            'name' => 'all-you-can-eat',
             'slug' => 'Grouss',
             'sorting_nr' => 6,
             'parent_id' => DB::table('items')->where('name', 'Pesto')->first()->id,
@@ -108,7 +108,7 @@ class DevData extends Seeder
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
-            'name' => 'All-you-can-eat',
+            'name' => 'all-you-can-eat',
             'slug' => 'Grouss',
             'sorting_nr' => 9,
             'parent_id' => DB::table('items')->where('name', 'Arrabiata')->first()->id,
@@ -135,7 +135,7 @@ class DevData extends Seeder
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
-            'name' => 'All-you-can-eat',
+            'name' => 'all-you-can-eat',
             'slug' => 'Grouss',
             'sorting_nr' => 12,
             'parent_id' => DB::table('items')->where('name', 'Carbonara')->first()->id,
@@ -162,7 +162,7 @@ class DevData extends Seeder
             'updated_at' => Carbon::now()->toDateTimeString(),
         ]);
         DB::table('items')->insert([
-            'name' => 'All-you-can-eat',
+            'name' => 'all-you-can-eat',
             'slug' => 'Grouss',
             'sorting_nr' => 15,
             'parent_id' => DB::table('items')->where('name', 'Spezial')->first()->id,
