@@ -18233,7 +18233,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "TheatreSelectContainer" },
-    _vm._l(_vm.theatres, function(name, idTheatre) {
+    _vm._l(_vm.orders, function(name, idTheatre) {
       return _c("div", [
         _c("input", {
           directives: [
