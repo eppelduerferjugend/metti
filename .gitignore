@@ -1,8 +1,7 @@
 .idea
 venv
-config.yml
+config/config.yml
 __pycache__
 *.egg-info
 .DS_Store
 node_modules
-
