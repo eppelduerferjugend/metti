@@ -1,6 +1,6 @@
 .idea
 venv
-config/config.yml
+metti/config/config.yml
 __pycache__
 *.egg-info
 .DS_Store

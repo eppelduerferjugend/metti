@@ -5,5 +5,5 @@ bind = '127.0.0.1:8000'
 workers = 4
 
 chdir = 'app'
-wsgi_app = 'server'
+app_dir = 'server'
 reload = True

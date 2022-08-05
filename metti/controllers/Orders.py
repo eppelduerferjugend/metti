@@ -5,11 +5,8 @@ from app.models.Order import Order
 from app.models.Item import Item
 from app.models.ItemOrder import ItemOrder
 from app.controllers.Base import BaseController
-from pprint import pprint
-import json
 import falcon
-import gunicorn
-from config.database import DB
+from metti.config.database import DB
 
 
 def add_quantity_and_price_to_order(order):

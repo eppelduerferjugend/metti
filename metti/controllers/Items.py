@@ -1,9 +1,8 @@
 """ Item Controller"""
 
-from app.models.Item import Item
-from app.controllers.Base import BaseController
-import falcon
-from config.database import DB
+from models.Item import Item
+from controllers.Base import BaseController
+from metti.config.database import DB
 import re
 
 

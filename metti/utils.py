@@ -36,7 +36,7 @@ formatter = ColoredFormatter('%(levelname)-7s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
-parent_path = Path(__file__).parent.parent
+parent_path = Path(__file__).parent
 
 if "pytest" in sys.modules:
   config_file = parent_path.joinpath('config/config.sample.yml')
