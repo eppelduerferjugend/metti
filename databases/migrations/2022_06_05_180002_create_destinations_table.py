@@ -10,11 +10,9 @@ class CreateDestinationsTable(Migration):
     """
     with self.schema.create('destinations') as table:
       table.increments('id')
-      table.string('name')
+      table.string('name').unique()
       table.text('description').nullable()
       table.soft_deletes()
-
-      table.timestamps()
 
   def down(self):
     """

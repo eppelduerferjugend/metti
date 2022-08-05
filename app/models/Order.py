@@ -12,6 +12,7 @@ class Order(Model, SoftDeletesMixin):
   """Order Model"""
   __hidden__ = ['deleted_at']
   __with__ = ['items', 'item_order']
+  __timestamps__ = False
 
   @belongs_to_many(
     'order_id',

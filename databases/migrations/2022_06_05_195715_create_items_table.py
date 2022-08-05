@@ -10,8 +10,8 @@ class CreateItemsTable(Migration):
     """
     with self.schema.create('items') as table:
       table.increments('id')
-      table.string('name')
-      table.string('slug').nullable()
+      table.string('name').unique()
+      table.string('slug').unique().nullable()
       table.string('color').nullable()
       table.double('price').nullable()
       table.integer('sorting_nr')
@@ -20,8 +20,6 @@ class CreateItemsTable(Migration):
       table.unsigned_integer('category_id')
       table.foreign('category_id').references('id').on('categories')
       table.soft_deletes()
-
-      table.timestamps()
 
   def down(self):
     """

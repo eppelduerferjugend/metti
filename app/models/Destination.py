@@ -7,5 +7,6 @@ from masoniteorm.scopes import SoftDeletesMixin
 class Destination(Model, SoftDeletesMixin):
   """Destination Model"""
   __hidden__ = ['deleted_at']
+  __timestamps__ = False
 
   pass

@@ -10,6 +10,8 @@ from app.models.Destination import Destination
 class Item(Model, SoftDeletesMixin):
   """Item Model"""
 
+  __timestamps__ = False
+
   @belongs_to_many(
     'item_id',
     'order_id',

@@ -19,8 +19,6 @@ class CreateOrdersTable(Migration):
       table.foreign('destination_id').references('id').on('destinations')
       table.soft_deletes()
 
-      table.timestamps()
-
   def down(self):
     """
     Revert the migrations.

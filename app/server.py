@@ -127,6 +127,7 @@ orders = OrderResource()
 app.add_route('/{user_id}/things', things)
 app.add_route('/items', items)
 app.add_route('/items/{item_id}', items, suffix='single')
+app.add_route('/items/move/{direction}/{item_id}', items, suffix='move')
 app.add_route('/orders', orders)
 app.add_route('/orders/{order_id}', orders, suffix='single')
 
