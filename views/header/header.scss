@@ -1,0 +1,51 @@
+
+@import '../../styles/shared.scss';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 56px;
+  padding: 0 20px;
+  z-index: $z-index-header;
+  background: $c-white;
+  @extend %s-shadow;
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    &:first-child {
+      justify-content: flex-start;
+      width: 100px;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+      width: 100px;
+    }
+  }
+
+  &__title {
+    flex-grow: 1;
+    @extend %t-h1;
+  }
+
+  &__button {
+    height: 48px;
+    @extend %t-button;
+    color: $c-interactive;
+
+    &:disabled {
+      color: $c-text-detail;
+      -webkit-text-fill-color: $c-text-detail;
+    }
+  }
+}

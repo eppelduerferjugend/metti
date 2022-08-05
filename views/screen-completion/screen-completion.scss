@@ -1,0 +1,38 @@
+
+@import '../../styles/shared.scss';
+
+.screen-completion {
+
+  &__alert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 240px;
+  }
+
+  &__icon {
+    width: 80px;
+    height: 80px;
+    color: $c-text;
+
+    &--spinning {
+      animation: screen-completion-rotation 1.5s infinite linear;
+    }
+  }
+
+  &__message {
+    padding: 24px 0 48px;
+    @extend %t-h2;
+    text-align: center;
+  }
+}
+
+@keyframes screen-completion-rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

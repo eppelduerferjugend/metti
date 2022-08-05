@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(255)
+  assignedOrders Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Table {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(255)
+  orders Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  color String?
+  unitPrice Int
+  unitCost Int?
+  position Int
+  storeId Int
+  store Store @relation(fields: [storeId], references: [id])
+  categories ProductCategory[]
+  orders LineItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductCategory {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  description String?
+  parentId Int?
+  parent ProductCategory? @relation("ProductCategoryChildren", fields: [parentId], references: [id])
+  children ProductCategory[] @relation("ProductCategoryChildren")
+  products Product[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum OrderState {
+  Pending
+  Completed
+  Canceled
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  storeId Int
+  store Store @relation(fields: [storeId], references: [id])
+  number String
+  state OrderState @default(Pending)
+  items LineItem[]
+  note String?
+  tableId Int
+  table Table @relation(fields: [tableId], references: [id])
+  assigneeId Int
+  assignee User @relation(fields: [assigneeId], references: [id])
+  test Boolean
+  transitionedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LineItem {
+  orderId Int
+  order Order @relation(fields: [orderId], references: [id])
+  productId Int
+  product Product @relation(fields: [productId], references: [id])
+  quantity Int
+  @@id([orderId, productId])
+}
+
+model Store {
+  id Int @id @default(autoincrement())
+  name String @unique @db.VarChar(255)
+  description String
+  products Product[]
+  orders Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

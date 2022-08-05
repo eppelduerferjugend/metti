@@ -1,0 +1,11 @@
+
+@mixin placeholder {
+
+  &::placeholder {
+    @content;
+  }
+
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}

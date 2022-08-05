@@ -1,0 +1,19 @@
+
+@import '../../styles/shared.scss';
+
+.button {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 20px;
+  @extend %t-button;
+  text-align: center;
+  background: $c-interactive;
+  color: $c-white;
+
+  &:disabled {
+    background: $c-shaded;
+    color: $c-text-detail;
+  }
+}

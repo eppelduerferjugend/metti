@@ -1,0 +1,48 @@
+
+@import '../../styles/shared.scss';
+
+.spinner {
+  $block: &;
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  background: $c-interactive;
+  border-radius: 20px;
+  user-select: none;
+
+  &__decrement,
+  &__increment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    color: $c-white;
+    font-size: 22px;
+  }
+
+  &__indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 40px;
+    color: $c-white;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  &--empty {
+    background: transparent;
+
+    #{$block}__decrement,
+    #{$block}__indicator {
+      display: none;
+    }
+
+    #{$block}__increment {
+      color: $c-interactive;
+    }
+  }
+}

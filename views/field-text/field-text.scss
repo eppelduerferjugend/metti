@@ -1,0 +1,10 @@
+
+@import '../../styles/shared.scss';
+
+.field-text {
+  border: 1px solid $c-line;
+
+  &__input {
+    padding: 6px 8px;
+  }
+}

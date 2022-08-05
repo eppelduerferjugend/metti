@@ -1,0 +1,19 @@
+
+@import '../../styles/shared.scss';
+
+.icon {
+  width: rem(24);
+  height: rem(24);
+  fill: none;
+  stroke: none;
+
+  &[stroke]:not([stroke="none"]),
+  [stroke]:not([stroke="none"]) {
+    stroke: currentColor;
+  }
+
+  &[fill]:not([fill="none"]),
+  [fill]:not([fill="none"]) {
+    fill: currentColor;
+  }
+}

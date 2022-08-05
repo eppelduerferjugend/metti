@@ -1,0 +1,33 @@
+
+@import '../../styles/shared.scss';
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+    padding: 8px 20px 8px 0;
+
+    & + & {
+      border-top: 1px solid $c-line;
+    }
+  }
+
+  &__item-label {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  &__section-header {
+    position: sticky;
+    top: 56px;
+    padding: 8px 20px;
+    background: $c-shaded;
+    @extend %t-h2;
+  }
+}

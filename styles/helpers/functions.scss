@@ -1,0 +1,9 @@
+
+/// Retrieves nested elements from a map.
+@function map-pull($map, $keys...) {
+  $mapOrValue: $map;
+  @each $key in $keys {
+    $mapOrValue: map-get($mapOrValue, $key);
+  }
+  @return $mapOrValue;
+}
