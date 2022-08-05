@@ -5,18 +5,31 @@ import ScreenOrderView from '../screen-order/screen-order'
 import ScreenPreviewView from '../screen-preview/screen-preview'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import useAppSelector from '../../hooks/useAppSelector'
-import { getOrderDraft, getOrderStep, setOrderLineItemAction, setOrderStepAction, resetOrderDraftAction, setStoreNoteAction, setOrderOrdererAction, setOrderTableAction } from '../../slices/order'
-import { useGetProductsQuery } from '../../slices/api'
+import { getOrderDraft, getOrderStep, setOrderLineItemAction, setOrderStepAction, resetOrderDraftAction, setStoreNoteAction, setOrderOrdererAction, setOrderTableAction, amendOrderDraftAction } from '../../slices/order'
+import { useCreateOrderMutation, useGetProductsQuery } from '../../slices/api'
 
 export default function AppView (): JSX.Element {
   const dispatch = useAppDispatch()
+  const [dispatchCreateOrder, createOrderResult] = useCreateOrderMutation()
   const draft = useAppSelector(state => getOrderDraft(state.order))
   const step = useAppSelector(state => getOrderStep(state.order))
   const { data: products, isLoading } = useGetProductsQuery()
 
   const onOrderDone = () => {
-    console.log('Place order', draft)
     dispatch(resetOrderDraftAction({}))
+  }
+
+  const onCreateOrder = async () => {
+    dispatch(setOrderStepAction({ step: 'completion' }))
+    const createOrderResult = await dispatchCreateOrder({ draft })
+    if ('data' in createOrderResult && 'error' in createOrderResult.data) {
+      // TODO: Handle error message
+      if ('amendedDraft' in createOrderResult.data) {
+        dispatch(amendOrderDraftAction({
+          amendedDraft: createOrderResult.data.amendedDraft
+        }))
+      }
+    }
   }
 
   const onLineItemChange = (productId: number, quantity: number) => {
@@ -50,7 +63,7 @@ export default function AppView (): JSX.Element {
           products={products ?? []}
           draft={draft}
           onBackClick={() => dispatch(setOrderStepAction({ step: 'order' }))}
-          onDoneClick={() => dispatch(setOrderStepAction({ step: 'completion' }))}
+          onDoneClick={onCreateOrder}
           onLineItemChange={onLineItemChange}
           onStoreNoteChange={onStoreNoteChange}
           onTableChange={onTableChange}
@@ -59,10 +72,10 @@ export default function AppView (): JSX.Element {
       )}
       {step === 'completion' && (
         <ScreenCompletionView
-          state='success'
+          state={createOrderResult.isLoading ? 'loading' : createOrderResult.isError ? 'error' : 'success'}
           onBackClick={() => dispatch(setOrderStepAction({ step: 'preview' }))}
           onDoneClick={onOrderDone}
-          onRetryClick={undefined}
+          onRetryClick={onCreateOrder}
         />
       )}
     </div>

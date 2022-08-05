@@ -7,7 +7,6 @@ const emptyOrderDraft: OrderDraft = {
   storeNotes: [],
   table: '',
   orderer: '',
-  note: '',
   test: false
 }
 
@@ -89,15 +88,16 @@ export const orderSlice = createSlice({
     }>) => {
       state.draft.orderer = payload.orderer
     },
-    setOrderNoteAction: (state, { payload }: PayloadAction<{
-      note: string
-    }>) => {
-      state.draft.note = payload.note
-    },
     setOrderTestAction: (state, { payload }: PayloadAction<{
       test: boolean
     }>) => {
       state.draft.test = payload.test
+    },
+    amendOrderDraftAction: (state, { payload }: PayloadAction<{
+      amendedDraft: OrderDraft
+    }>) => {
+      state.step = 'preview'
+      state.draft = payload.amendedDraft
     },
     resetOrderDraftAction: (state, { payload }: PayloadAction<{}>) => {
       state.step = 'order'
@@ -119,8 +119,8 @@ export const {
   setStoreNoteAction,
   setOrderTableAction,
   setOrderOrdererAction,
-  setOrderNoteAction,
   setOrderTestAction,
+  amendOrderDraftAction,
   resetOrderDraftAction
 } = orderSlice.actions
 
