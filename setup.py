@@ -8,5 +8,4 @@ setup(
   license='MIT',
   author='Thierry Morroni-Degeling',
   author_email='t@io.lu',
-  description=''
 )
