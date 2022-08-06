@@ -9,12 +9,23 @@ export default async function handler(
 ) {
   switch (req.method) {
     case 'GET': {
+      const updatedAfter = typeof req.query.updatedAfter === 'string'
+        ? new Date(req.query.updatedAfter)
+        : undefined
+
       const prisma = new PrismaClient()
       const orders = await prisma.order.findMany({
+        where: {
+          updatedAt: updatedAfter !== undefined
+            ? { gt: updatedAfter }
+            : undefined
+        },
         orderBy: {
           createdAt: 'asc'
         },
         include: {
+          table: true,
+          assignee: true,
           items: {
             include: {
               product: true
@@ -22,7 +33,7 @@ export default async function handler(
           }
         }
       })
-      res.status(200).json(orders)
+      res.status(200).end(JSON.stringify(orders))
       break
     }
     case 'POST': {
@@ -121,7 +132,8 @@ export default async function handler(
               test: orderDraft.test
             },
             include: {
-              store: true,
+              table: true,
+              assignee: true,
               items: {
                 include: {
                   product: true
@@ -132,7 +144,7 @@ export default async function handler(
         })
       )
 
-      res.status(200).json(orders)
+      res.status(200).end(JSON.stringify(orders))
       break
     }
     default: {

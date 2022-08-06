@@ -3,10 +3,10 @@ import Header from '../header/header'
 import ItemList from '../item-list/item-list'
 import React, { useState } from 'react'
 import SegmentedControl from '../segmented-control/segmented-control'
-import { OrderDraftLineItem, PublicProduct } from '../../types/types'
+import { OrderDraftLineItem, ExportedProduct } from '../../types/types'
 
 export default function ScreenOrderView (props: {
-  products: PublicProduct[]
+  products: ExportedProduct[]
   lineItems: OrderDraftLineItem[]
   onLineItemChange: (productId: number, newQuantity: number) => void
   onDoneClick: React.MouseEventHandler

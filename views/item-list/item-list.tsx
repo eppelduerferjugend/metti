@@ -1,10 +1,10 @@
 
 import React from 'react'
 import Spinner from '../spinner/spinner'
-import { OrderDraftLineItem, PublicProduct } from '../../types/types'
+import { OrderDraftLineItem, ExportedProduct } from '../../types/types'
 
 export default function ItemListView (props: {
-  products: PublicProduct[]
+  products: ExportedProduct[]
   lineItems: OrderDraftLineItem[]
   viewCategories?: boolean
   onLineItemChange: (productId: number, quantity: number) => void
@@ -26,7 +26,7 @@ export default function ItemListView (props: {
       : products
 
   const ItemView = (props: {
-    product: PublicProduct
+    product: ExportedProduct
   }): JSX.Element => {
     const lineItem = lineItems.find(lineItem =>
       lineItem.productId === props.product.id)

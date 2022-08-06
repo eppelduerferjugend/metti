@@ -1,16 +1,29 @@
 
-import { Store, Product, ProductCategory, Order, LineItem } from '@prisma/client'
+import { Store, Product, ProductCategory, Order, LineItem, Table, User } from '@prisma/client'
 import { z } from 'zod'
 
-export type PublicProduct = Product & {
+export type ExportableProduct = Product & {
   categories: ProductCategory[]
   store: Store
 }
 
-export type PublicOrder = Order & {
+export type ExportedProduct = ExportableProduct & {
+  createdAt: string
+  updatedAt: string
+}
+
+export type ExportableOrder = Order & {
+  table: Table
+  assignee: User
   items: Array<LineItem & {
     product: Product
   }>
+}
+
+export type ExportedOrder = ExportableOrder & {
+  transitionedAt: string
+  createdAt: string
+  updatedAt: string
 }
 
 export const orderDraftLineItemSchema = z.object({
@@ -47,4 +60,4 @@ export type OrderErrorResponse =
   z.infer<typeof createOrderErrorResponseSchema>
 
 export type OrderResponse =
-  PublicOrder[] | OrderErrorResponse
+  ExportedOrder[] | OrderErrorResponse

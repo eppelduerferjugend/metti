@@ -4,10 +4,10 @@ import FieldText from '../field-text/field-text'
 import Header from '../header/header'
 import ItemList from '../item-list/item-list'
 import React from 'react'
-import { OrderDraft, PublicProduct } from '../../types/types'
+import { OrderDraft, ExportedProduct } from '../../types/types'
 
 export default function ScreenPreviewView (props: {
-  products: PublicProduct[]
+  products: ExportedProduct[]
   draft: OrderDraft
   onLineItemChange: (productId: number, newQuantity: number) => void
   onStoreNoteChange: (storeId: number, note: string) => void
@@ -18,7 +18,7 @@ export default function ScreenPreviewView (props: {
 }): JSX.Element {
   const { products, draft } = props
 
-  const productMap = new Map<number, PublicProduct>()
+  const productMap = new Map<number, ExportedProduct>()
   for (const product of products) {
     productMap.set(product.id, product)
   }
@@ -26,7 +26,7 @@ export default function ScreenPreviewView (props: {
   const lineItemProducts = (
     draft.lineItems.map(lineItem => productMap.get(lineItem.productId))
       .filter(productOrUndefined => productOrUndefined !== undefined)
-  ) as PublicProduct[]
+  ) as ExportedProduct[]
 
   const stores =
     lineItemProducts
@@ -62,7 +62,7 @@ export default function ScreenPreviewView (props: {
         const lineItems = draft.lineItems.filter(lineItem =>
           productMap.get(lineItem.productId)?.storeId === store.id)
         const lineItemProducts = lineItems.map(lineItem =>
-          productMap.get(lineItem.productId)) as PublicProduct[]
+          productMap.get(lineItem.productId)) as ExportedProduct[]
         const note = draft.storeNotes.find(storeNote =>
           storeNote.storeId === store.id)?.note ?? ''
         return (

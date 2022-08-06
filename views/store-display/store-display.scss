@@ -1,0 +1,86 @@
+
+@import '../../styles/shared.scss';
+
+.store-display {
+
+  &__orders {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__order {
+    display: flex;
+    margin-top: 2px;
+  }
+
+  &__order-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    width: 20%;
+    background: $c-interactive;
+    color: $c-white
+  }
+
+  &__order-table {
+    font-size: 40px;
+  }
+
+  &__order-time {
+    padding-top: 16px;
+  }
+
+  &__order-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 16px;
+  }
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+    margin: 0 8px 8px 0;
+    border-radius: 12px;
+    background: #f2f4f6;
+  }
+
+  &__item-quantity {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background: $c-interactive;
+    color: $c-white;
+  }
+
+  &__item-name {
+    padding: 4px 8px 4px 8px;
+  }
+
+  &__order-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__order-assignee {
+    padding-right: 8px;
+  }
+
+  &__order-note {
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: #f2f4f6;
+  }
+}

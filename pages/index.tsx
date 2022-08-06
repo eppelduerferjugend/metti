@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import AppView from '../views/app/app'
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
     <main>
       <Head>
@@ -16,4 +16,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default HomePage
