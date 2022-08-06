@@ -7,9 +7,9 @@ import os
 db = config['db']
 
 # SQLALCHEMY_DATABASE_URL = f'postgresql://{db["user"]}:{db["password"]}@{db["host"]}/{db["database"]}'
+DATABASE_URL = os.environ['DATABASE_URL']
 
-
-engine = create_engine(os.environ['DATABASE_URL'])
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
