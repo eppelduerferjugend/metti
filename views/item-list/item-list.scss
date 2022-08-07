@@ -12,8 +12,6 @@
     margin-left: 20px;
     padding: 8px 20px 8px 0;
     --product-color: #{$c-interactive};
-    user-select: none;
-    touch-action: none;
 
     & + & {
       border-top: 1px solid $c-line;

@@ -2,7 +2,7 @@
 import useAppSelector from '../../hooks/useAppSelector'
 import useOrdersSync from '../../hooks/useOrdersSync'
 import { getStoreOrders, updateOrdersAction } from '../../slices/orders'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useUpdateOrderMutation } from '../../slices/api'
 import useAppDispatch from '../../hooks/useAppDispatch'
 
@@ -11,12 +11,19 @@ export default function StoreDisplayView (props: {
 }): JSX.Element {
   const dispatch = useAppDispatch()
   const [dispatchUpdateOrder] = useUpdateOrderMutation()
+  const alertAudioRef = useRef<HTMLAudioElement | null>(null)
 
   // Keep syncing local orders state with the server
   useOrdersSync()
 
   // Retrieve orders from state
   const orders = useAppSelector(state => getStoreOrders(state.orders, props.storeId))
+
+  useEffect(() => {
+    if (orders.length > 0) {
+      alertAudioRef.current?.play()
+    }
+  }, [orders.length])
 
   // Manage pointers to order elements
   const orderRefs = useRef<{ [name: number]: HTMLButtonElement | undefined }>({})
@@ -91,6 +98,9 @@ export default function StoreDisplayView (props: {
 
   return (
     <div className='store-display'>
+      <audio ref={alertAudioRef} preload='auto'>
+        <source src='/assets/alert.mp3' type='audio/mpeg' />
+      </audio>
       <ul className='store-display__orders'>
         {orders.map(order => (
           <li>
