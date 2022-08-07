@@ -119,13 +119,29 @@ export default async function handler(
         create: { name: orderDraft.table }
       })
 
+      // Sum up the number of items previously ordered in each store
+      const storeOrderedItemCount = (await Promise.all(stores.map(store =>
+        prisma.lineItem.aggregate({
+          _sum: {
+            quantity: true
+          },
+          where: {
+            product: { storeId: store.id }
+          }
+        })
+      )))
+        .map(aggregation => aggregation._sum.quantity ?? 0)
+
       // Create an order per store
       const orders = await prisma.$transaction(
-        stores.map(store => {
+        stores.map((store, storeIndex) => {
+          const orderedItemsCount = storeOrderedItemCount[storeIndex]
+          const numberString = (orderedItemsCount + 1).toString()
+          const prefixedNumber = store.numberPrefix + numberString.padStart(4, '0')
           return prisma.order.create({
             data: {
               store: { connect: { id: store.id } },
-              number: 'UNASSIGNED',
+              number: prefixedNumber,
               state: OrderState.Pending,
               table: { connect: { id: table.id } },
               assignee: { connect: { id: assignee.id } },

@@ -64,7 +64,7 @@ model Order {
   id Int @id @default(autoincrement())
   storeId Int
   store Store @relation(fields: [storeId], references: [id])
-  number String
+  number String @unique @db.VarChar(255)
   state OrderState @default(Pending)
   items LineItem[]
   note String?
@@ -80,7 +80,7 @@ model Order {
 
 model LineItem {
   orderId Int
-  order Order @relation(fields: [orderId], references: [id])
+  order Order @relation(fields: [orderId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   productId Int
   product Product @relation(fields: [productId], references: [id])
   quantity Int
@@ -89,8 +89,10 @@ model LineItem {
 
 model Store {
   id Int @id @default(autoincrement())
+  slug String @unique @db.VarChar(255)
   name String @unique @db.VarChar(255)
   description String
+  numberPrefix String @unique @db.VarChar(255)
   products Product[]
   orders Order[]
   createdAt DateTime @default(now())

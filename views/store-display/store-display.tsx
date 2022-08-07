@@ -102,6 +102,9 @@ export default function StoreDisplayView (props: {
               ref={onOrderRef.bind(null, order.id)}
             >
               <header className='store-display__order-header'>
+                <span className='store-display__order-number'>
+                  {order.number}
+                </span>
                 <span className='store-display__order-table'>
                   {order.table.name}
                 </span>
