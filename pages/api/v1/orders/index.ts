@@ -2,6 +2,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { OrderResponse, OrderDraft, orderDraftSchema } from '../../../../types/types'
 import { OrderState, Prisma, PrismaClient } from '@prisma/client'
+import { z } from 'zod'
+
+const ordersQuerySchema = z.object({
+  state: z.nativeEnum(OrderState).optional(),
+  updatedAfter: z.string().transform((string) => new Date(string)).optional(),
+  storeId: z.string().regex(/^\d+$/).transform(Number).optional()
+})
+
+type OrdersQuery = z.infer<typeof ordersQuerySchema>
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,15 +18,22 @@ export default async function handler(
 ) {
   switch (req.method) {
     case 'GET': {
-      const updatedAfter = typeof req.query.updatedAfter === 'string'
-        ? new Date(req.query.updatedAfter)
-        : undefined
+      let query: OrdersQuery
+      try {
+        query = ordersQuerySchema.parse(req.query)
+      } catch (error) {
+        res.status(400).end(`Bad request`)
+        console.error(error)
+        return
+      }
 
       const prisma = new PrismaClient()
       const orders = await prisma.order.findMany({
         where: {
-          updatedAt: updatedAfter !== undefined
-            ? { gt: updatedAfter }
+          storeId: query.storeId,
+          state: query.state,
+          updatedAt: query.updatedAfter !== undefined
+            ? { gt: query.updatedAfter }
             : undefined
         },
         orderBy: {
