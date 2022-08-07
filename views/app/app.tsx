@@ -16,8 +16,6 @@ export default function AppView (): JSX.Element {
   const step = useAppSelector(state => getOrderStep(state.order))
   const { data: products, isLoading } = useGetProductsQuery()
 
-  useOrdersSync()
-
   const onOrderDone = () => {
     dispatch(resetOrderDraftAction({}))
   }

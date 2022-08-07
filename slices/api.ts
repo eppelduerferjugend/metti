@@ -1,6 +1,6 @@
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { OrderResponse, OrderDraft, ExportedProduct, ExportedOrder } from '../types/types'
+import { OrderResponse, OrderDraft, ExportedProduct, ExportedOrder, UpdateOrderPayload } from '../types/types'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -31,6 +31,16 @@ export const apiSlice = createApi({
         method: 'POST',
         body: args.draft
       })
+    }),
+    updateOrder: builder.mutation<ExportedOrder, {
+      orderId: number,
+      payload: UpdateOrderPayload
+    }>({
+      query: (args) => ({
+        url: `orders/${args.orderId}`,
+        method: 'PUT',
+        body: args.payload
+      })
     })
   })
 })
@@ -40,5 +50,6 @@ export const {
   useLazyGetProductsQuery,
   useGetOrdersQuery,
   useLazyGetOrdersQuery,
-  useCreateOrderMutation
+  useCreateOrderMutation,
+  useUpdateOrderMutation
 } = apiSlice

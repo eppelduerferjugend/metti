@@ -1,5 +1,5 @@
 
-import { Store, Product, ProductCategory, Order, LineItem, Table, User } from '@prisma/client'
+import { Store, Product, ProductCategory, Order, LineItem, Table, User, OrderState } from '@prisma/client'
 import { z } from 'zod'
 
 export type ExportableProduct = Product & {
@@ -61,3 +61,9 @@ export type OrderErrorResponse =
 
 export type OrderResponse =
   ExportedOrder[] | OrderErrorResponse
+
+export const updateOrderPayloadSchema = z.object({
+  state: z.nativeEnum(OrderState)
+})
+
+export type UpdateOrderPayload = z.infer<typeof updateOrderPayloadSchema>
