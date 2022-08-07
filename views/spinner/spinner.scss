@@ -6,9 +6,8 @@
   display: flex;
   flex-direction: row;
   height: 40px;
-  background: $c-interactive;
+  background: var(--product-color);
   border-radius: 20px;
-  user-select: none;
 
   &__decrement,
   &__increment {
@@ -42,7 +41,7 @@
     }
 
     #{$block}__increment {
-      color: $c-interactive;
+      color: var(--product-color);
     }
   }
 }

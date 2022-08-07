@@ -65,6 +65,7 @@
     margin: 0 8px 8px 0;
     border-radius: 12px;
     background: #f2f4f6;
+    --product-color: #{$c-interactive};
   }
 
   &__item-quantity {
@@ -73,7 +74,7 @@
     height: 32px;
     padding: 0 12px;
     border-radius: 16px;
-    background: $c-interactive;
+    background: var(--product-color);
     color: $c-white;
   }
 

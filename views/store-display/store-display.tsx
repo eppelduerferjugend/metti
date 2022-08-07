@@ -113,8 +113,9 @@ export default function StoreDisplayView (props: {
                 <ul className='store-display__items'>
                   {order.items.map(lineItem => (
                     <li
-                      className='store-display__item'
                       key={lineItem.productId}
+                      className='store-display__item'
+                      style={{ ['--product-color' as string]: lineItem.product.color }}
                     >
                       <span className='store-display__item-quantity'>
                         {lineItem.quantity}

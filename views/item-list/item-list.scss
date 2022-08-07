@@ -8,19 +8,38 @@
   &__item {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-left: 20px;
     padding: 8px 20px 8px 0;
+    --product-color: #{$c-interactive};
+    user-select: none;
+    touch-action: none;
 
     & + & {
       border-top: 1px solid $c-line;
     }
   }
 
-  &__item-label {
-    display: flex;
-    align-items: center;
+  &__item-header {
+    display: block;
     flex-grow: 1;
     flex-basis: 0;
+    overflow: hidden;
+  }
+
+  &__item-name {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__item-detail {
+    color: $c-text-detail;
+  }
+
+  &__item-spinner {
+    padding-left: 8px;
   }
 
   &__section-header {

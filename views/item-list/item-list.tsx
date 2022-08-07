@@ -2,6 +2,7 @@
 import React from 'react'
 import Spinner from '../spinner/spinner'
 import { OrderDraftLineItem, ExportedProduct } from '../../types/types'
+import { formatCurrency } from '../../utils/format'
 
 export default function ItemListView (props: {
   products: ExportedProduct[]
@@ -32,9 +33,19 @@ export default function ItemListView (props: {
       lineItem.productId === props.product.id)
     const quantity = lineItem?.quantity ?? 0
     return (
-      <li className='item-list__item'>
-        <span className='item-list__item-label'>{props.product.name}</span>
-        <div className='item-list__spinner'>
+      <li
+        className='item-list__item'
+        style={{ ['--product-color' as string]: props.product.color }}
+      >
+        <div className='item-list__item-header'>
+          <span className='item-list__item-name'>
+            {props.product.name}
+          </span>
+          <span className='item-list__item-detail'>
+            {formatCurrency(props.product.unitPrice)}
+          </span>
+        </div>
+        <div className='item-list__item-spinner'>
           <Spinner
             value={quantity}
             onChange={onLineItemChange.bind(null, props.product.id)}
