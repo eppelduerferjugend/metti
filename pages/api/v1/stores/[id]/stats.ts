@@ -48,8 +48,8 @@ export default async function handler(
         }
       })
 
-      const pendingCount = pendingAggregate._sum.quantity
-      const completedCount = completedAggregate._sum.quantity
+      const pendingCount = pendingAggregate._sum.quantity ?? 0
+      const completedCount = completedAggregate._sum.quantity ?? 0
       res.status(200).end(JSON.stringify({ pendingCount, completedCount }))
       break
     }
