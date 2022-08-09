@@ -1,9 +1,13 @@
 
-import AppView from '../views/app/app'
 import Head from 'next/head'
 import type { GetStaticProps, NextPage } from 'next'
+import dynamic from 'next/dynamic'
 
 type OrderPageProps = {}
+
+const DynamicAppView = dynamic(() => import('../views/app/app'), {
+  ssr: false
+})
 
 const OrderPage: NextPage<OrderPageProps> = () => {
   return (
@@ -13,7 +17,7 @@ const OrderPage: NextPage<OrderPageProps> = () => {
         <meta name='robots' content='noindex' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <AppView />
+      <DynamicAppView />
     </main>
   )
 }

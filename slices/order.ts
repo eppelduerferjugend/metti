@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { OrderDraft } from '../types/types'
 
-const emptyOrderDraft: OrderDraft = {
+export const emptyOrderDraft: OrderDraft = {
   lineItems: [],
   storeNotes: [],
   table: '',
