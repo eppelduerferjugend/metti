@@ -1,7 +1,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ExportedProduct } from '../../../../types/types'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '../../../../prisma'
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +9,6 @@ export default async function handler(
 ) {
   switch (req.method) {
     case 'GET': {
-      const prisma = new PrismaClient()
       const products = await prisma.product.findMany({
         orderBy: {
           position: 'asc'

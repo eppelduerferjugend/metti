@@ -1,7 +1,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ExportedOrder, UpdateOrderPayload, updateOrderPayloadSchema } from '../../../../types/types'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '../../../../prisma'
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,7 +24,6 @@ export default async function handler(
 
   switch (req.method) {
     case 'GET': {
-      const prisma = new PrismaClient()
       const order = await prisma.order.findUnique({
         where: {
           id
@@ -52,7 +51,6 @@ export default async function handler(
         return
       }
 
-      const prisma = new PrismaClient()
       const order = await prisma.order.update({
         where: {
           id

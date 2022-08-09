@@ -1,9 +1,11 @@
 
-import type { NextPage } from 'next'
-import Head from 'next/head'
 import AppView from '../views/app/app'
+import Head from 'next/head'
+import type { GetStaticProps, NextPage } from 'next'
 
-const HomePage: NextPage = () => {
+type OrderPageProps = {}
+
+const OrderPage: NextPage<OrderPageProps> = () => {
   return (
     <main>
       <Head>
@@ -16,4 +18,10 @@ const HomePage: NextPage = () => {
   )
 }
 
-export default HomePage
+export const getStaticProps: GetStaticProps<OrderPageProps> = async (context) => {
+  return {
+    props: {}
+  }
+}
+
+export default OrderPage

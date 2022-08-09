@@ -1,6 +1,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient, Store } from '@prisma/client'
+import { Store } from '@prisma/client'
+import { prisma } from '../../../../prisma'
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,7 +9,6 @@ export default async function handler(
 ) {
   switch (req.method) {
     case 'GET': {
-      const prisma = new PrismaClient()
       const stores = await prisma.store.findMany()
       res.status(200).end(JSON.stringify(stores))
       break

@@ -1,10 +1,10 @@
 
+import useAppDispatch from '../../hooks/useAppDispatch'
 import useAppSelector from '../../hooks/useAppSelector'
 import useOrdersSync from '../../hooks/useOrdersSync'
 import { getStoreOrders, updateOrdersAction } from '../../slices/orders'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useUpdateOrderMutation } from '../../slices/api'
-import useAppDispatch from '../../hooks/useAppDispatch'
 
 export default function StoreDisplayView (props: {
   storeId: number

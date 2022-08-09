@@ -1,8 +1,9 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { OrderResponse, OrderDraft, orderDraftSchema } from '../../../../types/types'
-import { OrderState, Prisma, PrismaClient } from '@prisma/client'
+import { OrderState, Prisma } from '@prisma/client'
 import { z } from 'zod'
+import { prisma } from '../../../../prisma'
 
 const ordersQuerySchema = z.object({
   state: z.nativeEnum(OrderState).optional(),
@@ -22,12 +23,11 @@ export default async function handler(
       try {
         query = ordersQuerySchema.parse(req.query)
       } catch (error) {
-        res.status(400).end(`Bad request`)
+        res.status(400).end('Bad request')
         console.error(error)
         return
       }
 
-      const prisma = new PrismaClient()
       const orders = await prisma.order.findMany({
         where: {
           storeId: query.storeId,
@@ -61,9 +61,6 @@ export default async function handler(
         console.error(error)
         return
       }
-
-      // Connect to database
-      const prisma = new PrismaClient()
 
       // Gather products mentioned in the order draft
       const products = await prisma.product.findMany({

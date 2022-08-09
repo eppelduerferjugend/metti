@@ -1,7 +1,8 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient, Store } from '@prisma/client'
+import { Store } from '@prisma/client'
 import { z } from 'zod'
+import { prisma } from '../../../../../prisma'
 
 const storeCountQuerySchema = z.object({
   id: z.string().regex(/^\d+$/).transform(Number).optional()
@@ -26,7 +27,6 @@ export default async function handler(
       }
 
       // Aggregate sum over line item quantities in this store
-      const prisma = new PrismaClient()
       const aggregate = await prisma.lineItem.aggregate({
         _sum: {
           quantity: true

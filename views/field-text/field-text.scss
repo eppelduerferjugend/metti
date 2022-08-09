@@ -4,6 +4,10 @@
 .field-text {
   border: 1px solid $c-line;
 
+  &__label {
+    @extend %t-text;
+  }
+
   &__input {
     padding: 6px 8px;
   }

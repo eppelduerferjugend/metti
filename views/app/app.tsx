@@ -7,7 +7,6 @@ import useAppDispatch from '../../hooks/useAppDispatch'
 import useAppSelector from '../../hooks/useAppSelector'
 import { getOrderDraft, getOrderStep, setOrderLineItemAction, setOrderStepAction, resetOrderDraftAction, setStoreNoteAction, setOrderOrdererAction, setOrderTableAction, amendOrderDraftAction } from '../../slices/order'
 import { useCreateOrderMutation, useGetProductsQuery } from '../../slices/api'
-import useOrdersSync from '../../hooks/useOrdersSync'
 
 export default function AppView (): JSX.Element {
   const dispatch = useAppDispatch()
