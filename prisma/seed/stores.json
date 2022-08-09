@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Bar",
+        "description": "Gedrénks & Desserten",
+        "numberPrefix": "BAR-",
+        "slug": "bar"
+    },
+    {
+        "name": "Spaghetti",
+        "description": "Spaghetti Bestellungen",
+        "numberPrefix": "SPA-",
+        "slug": "spaghetti"
+    }
+]

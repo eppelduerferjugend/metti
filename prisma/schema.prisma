@@ -29,10 +29,11 @@ model Table {
 
 model Product {
   id Int @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
   color String?
   unitPrice Int
   unitCost Int?
+  available Boolean @default(true)
   position Int
   storeId Int
   store Store @relation(fields: [storeId], references: [id])
@@ -44,7 +45,7 @@ model Product {
 
 model ProductCategory {
   id Int @id @default(autoincrement())
-  name String @db.VarChar(255)
+  name String @unique @db.VarChar(255)
   description String?
   parentId Int?
   parent ProductCategory? @relation("ProductCategoryChildren", fields: [parentId], references: [id])

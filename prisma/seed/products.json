@@ -1,0 +1,469 @@
+[
+    {
+        "name": "Glas Platt Waasser",
+        "unitPrice": 200,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Fläsch 1/2L Platt Waasser",
+        "unitPrice": 350,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Fläsch 1L Platt Waasser",
+        "unitPrice": 600,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Glas Spruddel Waasser",
+        "unitPrice": 200,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Fläsch 1/2L Spruddel Waasser",
+        "unitPrice": 350,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Fläsch 1L Spruddel Waasser",
+        "unitPrice": 600,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Eidelt Glas fir Softdrinks",
+        "unitPrice": 0,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Cola",
+        "unitPrice": 250,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Fanta",
+        "unitPrice": 250,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Sprite",
+        "unitPrice": 250,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Orangëjus",
+        "unitPrice": 250,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Viz",
+        "unitPrice": 250,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+    {
+        "name": "Kaffi",
+        "unitPrice": 250,
+        "storeSlug": "bar",
+        "categories": ["Alkoholfräi"]
+    },
+
+    {
+        "name": "Diekircher Mini",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Alkoholesches"]
+    },
+    {
+        "name": "Meter Béier (10+1 Mini)",
+        "unitPrice": 3000,
+        "storeSlug": "bar",
+        "categories": ["Alkoholesches"]
+    },
+    {
+        "name": "Diekircher Radler",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Alkoholesches"]
+    },
+    {
+        "name": "Hoegaarden Rosée",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Alkoholesches"]
+    },
+    {
+        "name": "Panaché Cola",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Alkoholesches"]
+    },
+    {
+        "name": "Panaché Sprite",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Alkoholesches"]
+    },
+    {
+        "name": "Cola Wäin",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Alkoholesches"]
+    },
+    {
+        "name": "Vin Vittel",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Alkoholesches"]
+    },
+
+    {
+        "name": "Lët’z Spritz",
+        "unitPrice": 800,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Coupe Crémant",
+        "unitPrice": 600,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Fläsch Crémant",
+        "unitPrice": 3000,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Eidelt Glas fir Crémant",
+        "unitPrice": 0,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Kir Royal",
+        "unitPrice": 600,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Hugo",
+        "unitPrice": 800,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Campari Sec",
+        "unitPrice": 400,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Campari Orange",
+        "unitPrice": 500,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Campari Soda",
+        "unitPrice": 500,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+    {
+        "name": "Porto",
+        "unitPrice": 500,
+        "storeSlug": "bar",
+        "categories": ["Apéritifs"]
+    },
+
+    {
+        "name": "Glas Riesling (Wäissen)",
+        "unitPrice": 650,
+        "storeSlug": "bar",
+        "categories": ["Wäin"]
+    },
+    {
+        "name": "Fläsch Riesling (Wäissen)",
+        "unitPrice": 2600,
+        "storeSlug": "bar",
+        "categories": ["Wäin"]
+    },
+    {
+        "name": "Glas Gris de Gris (Rosé)",
+        "unitPrice": 650,
+        "storeSlug": "bar",
+        "categories": ["Wäin"]
+    },
+    {
+        "name": "Fläsch Gris de Gris (Rosé)",
+        "unitPrice": 2600,
+        "storeSlug": "bar",
+        "categories": ["Wäin"]
+    },
+    {
+        "name": "Glas Pinot Noir (Rouden)",
+        "unitPrice": 650,
+        "storeSlug": "bar",
+        "categories": ["Wäin"]
+    },
+    {
+        "name": "Fläsch Pinot Noir (Rouden)",
+        "unitPrice": 2600,
+        "storeSlug": "bar",
+        "categories": ["Wäin"]
+    },
+    {
+        "name": "Eidelt Glas fir Wäin",
+        "unitPrice": 0,
+        "storeSlug": "bar",
+        "categories": ["Wäin"]
+    },
+
+    {
+        "name": "Äppel Schléiwe Mojito",
+        "unitPrice": 1200,
+        "storeSlug": "bar",
+        "categories": ["Gins"]
+    },
+    {
+        "name": "Dry Gin Tonic",
+        "unitPrice": 1000,
+        "storeSlug": "bar",
+        "categories": ["Gins"]
+    },
+    {
+        "name": "Sloe Gin Tonic",
+        "unitPrice": 1000,
+        "storeSlug": "bar",
+        "categories": ["Gins"]
+    },
+
+    {
+        "name": "Mojito",
+        "unitPrice": 1000,
+        "storeSlug": "bar",
+        "categories": ["Cocktails"]
+    },
+    {
+        "name": "Tequila Sunrise",
+        "unitPrice": 1000,
+        "storeSlug": "bar",
+        "categories": ["Cocktails"]
+    },
+    {
+        "name": "Watermelon Man",
+        "unitPrice": 1000,
+        "storeSlug": "bar",
+        "categories": ["Cocktails"]
+    },
+    {
+        "name": "Pina Colada",
+        "unitPrice": 1000,
+        "storeSlug": "bar",
+        "categories": ["Cocktails"]
+    },
+    {
+        "name": "Metti Spaghetti (Alkoholfräi)",
+        "unitPrice": 800,
+        "storeSlug": "bar",
+        "categories": ["Cocktails"]
+    },
+
+    {
+        "name": "Drëpp Hunneg",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Digestifs"]
+    },
+    {
+        "name": "Drëpp Quetschen",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Digestifs"]
+    },
+    {
+        "name": "Drëpp Äppel",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Digestifs"]
+    },
+    {
+        "name": "Drëpp Williams",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Digestifs"]
+    },
+    {
+        "name": "Drëpp Nélchesbiiren",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Digestifs"]
+    },
+    {
+        "name": "Drëpp Mirabellen",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Digestifs"]
+    },
+    {
+        "name": "Drëpp Framboise",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Digestifs"]
+    },
+    {
+        "name": "Drëpp Kiischten",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Digestifs"]
+    },
+
+    {
+        "name": "Mousse au Chocolat",
+        "unitPrice": 500,
+        "storeSlug": "bar",
+        "categories": ["Desserten"]
+    },
+    {
+        "name": "Crème Bavaroise",
+        "unitPrice": 500,
+        "storeSlug": "bar",
+        "categories": ["Desserten"]
+    },
+    {
+        "name": "Glace Äerdbier Cornet",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Desserten"]
+    },
+    {
+        "name": "Glace Vanill Cornet",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Desserten"]
+    },
+    {
+        "name": "Glace Schockela um Still",
+        "unitPrice": 300,
+        "storeSlug": "bar",
+        "categories": ["Desserten"]
+    },
+
+    {
+        "name": "Bolognaise All-You-Can-Eat",
+        "color": "#d7302f",
+        "unitPrice": 1200,
+        "storeSlug": "spaghetti",
+        "categories": ["Bolognaise"]
+    },
+    {
+        "name": "Bolognaise Kleng",
+        "color": "#d7302f",
+        "unitPrice": 900,
+        "storeSlug": "spaghetti",
+        "categories": ["Bolognaise"]
+    },
+    {
+        "name": "Bolognaise Refill",
+        "color": "#d7302f",
+        "unitPrice": 0,
+        "storeSlug": "spaghetti",
+        "categories": ["Bolognaise"]
+    },
+    {
+        "name": "Carbonara All-You-Can-Eat",
+        "color": "#d67330",
+        "unitPrice": 1200,
+        "storeSlug": "spaghetti",
+        "categories": ["Carbonara"]
+    },
+    {
+        "name": "Carbonara Kleng",
+        "color": "#d67330",
+        "unitPrice": 900,
+        "storeSlug": "spaghetti",
+        "categories": ["Carbonara"]
+    },
+    {
+        "name": "Carbonara Refill",
+        "color": "#d67330",
+        "unitPrice": 0,
+        "storeSlug": "spaghetti",
+        "categories": ["Carbonara"]
+    },
+    {
+        "name": "Pesto All-You-Can-Eat",
+        "color": "#4f8432",
+        "unitPrice": 1200,
+        "storeSlug": "spaghetti",
+        "categories": ["Pesto"]
+    },
+    {
+        "name": "Pesto Kleng",
+        "color": "#4f8432",
+        "unitPrice": 900,
+        "storeSlug": "spaghetti",
+        "categories": ["Pesto"]
+    },
+    {
+        "name": "Pesto Refill",
+        "color": "#4f8432",
+        "unitPrice": 0,
+        "storeSlug": "spaghetti",
+        "categories": ["Pesto"]
+    },
+    {
+        "name": "Arrabiata All-You-Can-Eat",
+        "color": "#31d3a9",
+        "unitPrice": 1200,
+        "storeSlug": "spaghetti",
+        "categories": ["Arrabiata"]
+    },
+    {
+        "name": "Arrabiata Kleng",
+        "color": "#31d3a9",
+        "unitPrice": 900,
+        "storeSlug": "spaghetti",
+        "categories": ["Arrabiata"]
+    },
+    {
+        "name": "Arrabiata Refill",
+        "color": "#31d3a9",
+        "unitPrice": 0,
+        "storeSlug": "spaghetti",
+        "categories": ["Arrabiata"]
+    },
+    {
+        "name": "Spezial All-You-Can-Eat",
+        "color": "#888888",
+        "unitPrice": 1200,
+        "storeSlug": "spaghetti",
+        "categories": ["Spezial"]
+    },
+    {
+        "name": "Spezial Kleng",
+        "color": "#888888",
+        "unitPrice": 900,
+        "storeSlug": "spaghetti",
+        "categories": ["Spezial"]
+    },
+    {
+        "name": "Spezial Refill",
+        "color": "#888888",
+        "unitPrice": 0,
+        "storeSlug": "spaghetti",
+        "categories": ["Spezial"]
+    }
+]
