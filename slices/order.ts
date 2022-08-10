@@ -100,7 +100,6 @@ export const orderSlice = createSlice({
       state.draft = payload.amendedDraft
     },
     resetOrderDraftAction: (state, { payload }: PayloadAction<{}>) => {
-      state.step = 'order'
       state.draft = {
         ...emptyOrderDraft,
         // Keep orderer intact

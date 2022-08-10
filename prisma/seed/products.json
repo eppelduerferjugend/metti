@@ -6,13 +6,13 @@
         "categories": ["Alkoholfräi"]
     },
     {
-        "name": "Fläsch 1/2L Platt Waasser",
+        "name": "1/2L Platt Waasser",
         "unitPrice": 350,
         "storeSlug": "bar",
         "categories": ["Alkoholfräi"]
     },
     {
-        "name": "Fläsch 1L Platt Waasser",
+        "name": "1L Platt Waasser",
         "unitPrice": 600,
         "storeSlug": "bar",
         "categories": ["Alkoholfräi"]
@@ -24,19 +24,19 @@
         "categories": ["Alkoholfräi"]
     },
     {
-        "name": "Fläsch 1/2L Spruddel Waasser",
+        "name": "1/2L Spruddel Waasser",
         "unitPrice": 350,
         "storeSlug": "bar",
         "categories": ["Alkoholfräi"]
     },
     {
-        "name": "Fläsch 1L Spruddel Waasser",
+        "name": "1L Spruddel Waasser",
         "unitPrice": 600,
         "storeSlug": "bar",
         "categories": ["Alkoholfräi"]
     },
     {
-        "name": "Eidelt Glas fir Softdrinks",
+        "name": "Eidelt Glas fir Waasser",
         "unitPrice": 0,
         "storeSlug": "bar",
         "categories": ["Alkoholfräi"]
