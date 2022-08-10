@@ -139,7 +139,7 @@ export default async function handler(
             data: {
               store: { connect: { id: store.id } },
               number: prefixedNumber,
-              state: OrderState.Pending,
+              state: OrderState.pending,
               table: { connect: { id: table.id } },
               assignee: { connect: { id: assignee.id } },
               note: orderDraft.storeNotes.find(storeNote =>

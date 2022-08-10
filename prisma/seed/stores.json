@@ -1,14 +1,29 @@
 [
-    {
-        "name": "Bar",
-        "description": "Gedrénks & Desserten",
-        "numberPrefix": "BAR-",
-        "slug": "bar"
-    },
-    {
-        "name": "Spaghetti",
-        "description": "Spaghetti Bestellungen",
-        "numberPrefix": "SPA-",
-        "slug": "spaghetti"
-    }
+  {
+    "id": 1,
+    "name": "Bar",
+    "description": "Gedrénks & Desserten",
+    "payable": false,
+    "deliverable": true,
+    "numberPrefix": "BAR-",
+    "slug": "bar"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Spaghetti Bestellungen",
+    "payable": false,
+    "deliverable": true,
+    "numberPrefix": "SPA-",
+    "slug": "spaghetti"
+  },
+  {
+    "id": 3,
+    "name": "Keess",
+    "description": "Verkaaf an der Keess",
+    "payable": true,
+    "deliverable": false,
+    "numberPrefix": "KES-",
+    "slug": "checkout"
+  }
 ]

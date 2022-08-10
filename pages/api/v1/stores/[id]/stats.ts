@@ -1,6 +1,6 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Store } from '@prisma/client'
+import { OrderState, Store } from '@prisma/client'
 import { z } from 'zod'
 import { prisma } from '../../../../../prisma'
 
@@ -32,7 +32,7 @@ export default async function handler(
           quantity: true
         },
         where: {
-          order: { state: 'Pending' },
+          order: { state: OrderState.pending },
           product: { storeId: query.id }
         }
       })
@@ -43,7 +43,7 @@ export default async function handler(
           quantity: true
         },
         where: {
-          order: { state: 'Completed' },
+          order: { state: OrderState.completed },
           product: { storeId: query.id }
         }
       })

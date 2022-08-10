@@ -56,9 +56,9 @@ model ProductCategory {
 }
 
 enum OrderState {
-  Pending
-  Completed
-  Canceled
+  pending
+  canceled
+  completed
 }
 
 model Order {
@@ -66,13 +66,15 @@ model Order {
   storeId Int
   store Store @relation(fields: [storeId], references: [id])
   number String @unique @db.VarChar(255)
-  state OrderState @default(Pending)
+  state OrderState @default(pending)
   items LineItem[]
   note String?
-  tableId Int
-  table Table @relation(fields: [tableId], references: [id])
+  tableId Int?
+  table Table? @relation(fields: [tableId], references: [id])
   assigneeId Int
   assignee User @relation(fields: [assigneeId], references: [id])
+  paymentId Int?
+  payment Payment?
   test Boolean
   transitionedAt DateTime @default(now())
   createdAt DateTime @default(now())
@@ -93,9 +95,39 @@ model Store {
   slug String @unique @db.VarChar(255)
   name String @unique @db.VarChar(255)
   description String
+  payable Boolean
+  deliverable Boolean
   numberPrefix String @unique @db.VarChar(255)
   products Product[]
   orders Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum PaymentProvider {
+  payconiq
+  sumup
+}
+
+enum PaymentState {
+  pending
+  canceled
+  completed
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+  state PaymentState
+  provider PaymentProvider
+  providerId String @db.VarChar(255)
+  providerPayload Json?
+  orderId Int @unique
+  order Order @relation(fields: [orderId], references: [id])
+  amountPayable Int
+  amountPayed Int?
+  message String?
+  completedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([provider, providerId])
 }

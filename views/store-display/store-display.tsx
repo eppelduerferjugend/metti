@@ -54,7 +54,7 @@ export default function StoreDisplayView (props: {
         if (order !== undefined) {
           ;(async () => {
             // Toggle state between pending and completed
-            const newState = order.state === 'Pending' ? 'Completed' : 'Pending'
+            const newState = order.state === 'pending' ? 'completed' : 'pending'
             const result = await dispatchUpdateOrder({
               orderId,
               payload: {

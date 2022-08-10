@@ -11,9 +11,9 @@ const main = async () => {
   for (const storeData of seedStores) {
     console.log(`Import ${storeData.name}`)
     await prisma.store.upsert({
-      where: { name: storeData.name },
+      where: { id: storeData.id },
       create: storeData,
-      update: storeData
+      update: { ...storeData, id: undefined }
     })
   }
 
@@ -28,7 +28,7 @@ const main = async () => {
       ...remainingProductData
     } = seedProduct
 
-    const productData: Prisma.ProductCreateInput = {
+    const productData: Prisma.ProductUncheckedCreateInput = {
       position: (i + 1) * 10,
       ...remainingProductData,
       categories: {
@@ -37,11 +37,11 @@ const main = async () => {
           create: { name: categoryName }
         }))
       },
-      store: { connect: { slug: storeSlug } }
+      storeId: seedStores.find(store => store.slug === storeSlug)!.id,
     }
 
     await prisma.product.upsert({
-      where: { name: seedProduct.name },
+      where: { id: seedProduct.id },
       create: productData,
       update: productData
     })
