@@ -15,12 +15,26 @@
 
 %t-h1 {
   font-family: Roboto, sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 40px;
+}
+
+%t-h2 {
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+%t-h3 {
+  font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: bold;
   line-height: 24px;
 }
 
-%t-h2 {
+%t-title {
   font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: bold;

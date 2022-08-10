@@ -5,6 +5,7 @@ import ScreenOrderView from '../screen-order/screen-order'
 import ScreenPreviewView from '../screen-preview/screen-preview'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import useAppSelector from '../../hooks/useAppSelector'
+import { PaymentProvider } from '@prisma/client'
 import { getOrderDraft, getOrderStep, setOrderLineItemAction, setOrderStepAction, resetOrderDraftAction, setStoreNoteAction, setOrderOrdererAction, setOrderTableAction, amendOrderDraftAction } from '../../slices/order'
 import { useCreateOrderMutation, useGetProductsQuery } from '../../slices/api'
 
@@ -15,14 +16,14 @@ export default function AppView (): JSX.Element {
   const step = useAppSelector(state => getOrderStep(state.order))
   const { data: products, isLoading } = useGetProductsQuery()
 
-  const onCreateOrder = async () => {
+  const onOrderClick = async () => {
     dispatch(setOrderStepAction({ step: 'completion' }))
     const createOrderResult = await dispatchCreateOrder({ draft })
 
     if ('data' in createOrderResult) {
       if ('error' in createOrderResult.data) {
         // TODO: Handle error message
-        if ('amendedDraft' in createOrderResult.data) {
+        if ('amendedDraft' in createOrderResult.data && createOrderResult.data.amendedDraft !== undefined) {
           dispatch(amendOrderDraftAction({
             amendedDraft: createOrderResult.data.amendedDraft
           }))
@@ -65,7 +66,7 @@ export default function AppView (): JSX.Element {
           products={products ?? []}
           draft={draft}
           onBackClick={() => dispatch(setOrderStepAction({ step: 'order' }))}
-          onDoneClick={onCreateOrder}
+          onDoneClick={onOrderClick}
           onLineItemChange={onLineItemChange}
           onStoreNoteChange={onStoreNoteChange}
           onTableChange={onTableChange}
@@ -77,7 +78,7 @@ export default function AppView (): JSX.Element {
           state={createOrderResult.isLoading ? 'loading' : createOrderResult.isError ? 'error' : 'success'}
           onBackClick={() => dispatch(setOrderStepAction({ step: 'preview' }))}
           onDoneClick={() => dispatch(setOrderStepAction({ step: 'order' }))}
-          onRetryClick={onCreateOrder}
+          onRetryClick={undefined/* TODO: Repeat */}
         />
       )}
     </div>

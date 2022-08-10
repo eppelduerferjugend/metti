@@ -27,26 +27,28 @@ export default function ScreenOrderView (props: {
   return (
     <div className='screen screen-order'>
       <Header
-        title='Spaghettisfest Metti'
+        title='Metti'
         doneLabel='Weider'
         doneEnabled={props.lineItems.length !== 0}
         onDoneClick={props.onDoneClick}
       />
-      <div className='screen-order__destinations'>
+      <div className='screen-order__stores'>
         <SegmentedControl
           segments={stores.map(store => store.name)}
           selectedIndex={selectedStoreIndex}
           onChange={setSelectedStoreIndex}
         />
       </div>
-      {store !== undefined && (
-        <ItemList
-          products={storeProducts}
-          lineItems={props.lineItems}
-          viewCategories
-          onLineItemChange={props.onLineItemChange}
-        />
-      )}
+      <div className='screen-order__items'>
+        {store !== undefined && (
+          <ItemList
+            products={storeProducts}
+            lineItems={props.lineItems}
+            viewCategories
+            onLineItemChange={props.onLineItemChange}
+          />
+        )}
+      </div>
     </div>
   )
 }

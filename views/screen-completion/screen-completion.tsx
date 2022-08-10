@@ -13,7 +13,7 @@ export default function ScreenCompletionView (props: {
   return (
     <div className='screen screen-completion'>
       <HeaderView
-        title='Spaghettisfest Metti'
+        title='Metti'
         backEnabled={props.state === 'error'}
         onBackClick={props.onBackClick}
       />

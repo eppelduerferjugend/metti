@@ -37,9 +37,8 @@ export const orderSlice = createSlice({
     }>) => {
       const { productId, quantity } = payload
       if (quantity < 0) {
-        throw new Error('Negative line item quantity is not supported')
-      }
-      if (quantity === 0) {
+        throw new Error('Logic error: Negative line item quantity is not supported')
+      } else if (quantity === 0) {
         // Remove matching line item
         state.draft.lineItems = state.draft.lineItems.filter(lineItem =>
           lineItem.productId !== productId)

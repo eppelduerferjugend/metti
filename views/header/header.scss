@@ -12,10 +12,10 @@
   right: 0;
   width: 100%;
   height: 56px;
-  padding: 0 20px;
+  padding: 0 16px;
   z-index: $z-index-header;
-  background: $c-white;
-  @extend %s-shadow;
+  background: $c-interactive;
+  color: $c-white;
 
   &__item {
     display: flex;
@@ -35,17 +35,17 @@
 
   &__title {
     flex-grow: 1;
-    @extend %t-h1;
+    @extend %t-title;
   }
 
   &__button {
     height: 48px;
     @extend %t-button;
-    color: $c-interactive;
+    color: $c-white;
 
     &:disabled {
-      color: $c-text-detail;
-      -webkit-text-fill-color: $c-text-detail;
+      opacity: 0.5;
+      -webkit-text-fill-color: currentColor;
     }
   }
 }

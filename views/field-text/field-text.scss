@@ -2,13 +2,15 @@
 @import '../../styles/shared.scss';
 
 .field-text {
-  border: 1px solid $c-line;
 
   &__label {
+    display: block;
     @extend %t-text;
+    padding-bottom: 8px;
   }
 
   &__input {
-    padding: 6px 8px;
+    padding: 8px 16px;
+    border: 1px solid $c-line;
   }
 }

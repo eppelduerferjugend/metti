@@ -34,80 +34,97 @@ export default function ScreenPreviewView (props: {
       .filter((store, index, stores) =>
         stores.findIndex(({ id }) => store.id === id) === index)
 
+  const isDeliverable = stores.find(store => store.deliverable) !== undefined
+
   // Verify order
   let submitEnabled = true
   let submitLabel = 'Bestellung opginn'
 
-  if (draft.table.length === 0) {
+  if (draft.orderer.length < 2) {
     submitEnabled = false
-    submitLabel = 'Dësch fehlt'
-  } else if (!draft.table.match('^[A-Za-z][0-9]{1,2}$')) {
-    submitEnabled = false
-    submitLabel = 'Dësch falsch'
-  } else if (draft.orderer.length < 2) {
-    submitEnabled = false
-    submitLabel = 'Service fehlt'
-  } else if (draft.lineItems.length === 0) {
-    submitEnabled = false
-    submitLabel = 'Näischt ausgewielt'
+    submitLabel = 'Service net uginn'
+  }
+
+  if (isDeliverable) {
+    if (draft.table?.length === 0) {
+      submitEnabled = false
+      submitLabel = 'Dëschnummer net uginn'
+    } else if (!draft.table?.match('^[A-Za-z][0-9]{1,2}$')) {
+      submitEnabled = false
+      submitLabel = 'Ongëlteg Dëschnummer'
+    }
   }
 
   return (
     <div className='screen screen-preview'>
       <Header
-        title='Spaghettisfest Metti'
+        title='Metti'
         onBackClick={props.onBackClick}
       />
-      {stores.map(store => {
-        const lineItems = draft.lineItems.filter(lineItem =>
-          productMap.get(lineItem.productId)?.storeId === store.id)
-        const lineItemProducts = lineItems.map(lineItem =>
-          productMap.get(lineItem.productId)) as ExportedProduct[]
-        const note = draft.storeNotes.find(storeNote =>
-          storeNote.storeId === store.id)?.note ?? ''
-        return (
-          <div className='screen-preview__section' key={store.id}>
-            <h3 className='screen-preview__section-headline'>{store.name}</h3>
-            <ItemList
-              products={lineItemProducts}
-              lineItems={lineItems}
-              onLineItemChange={props.onLineItemChange}
-            />
-            <div className='screen-preview__field'>
-              <FieldText
-                placeholder={`${store.name} Kommentar bäisetzen`}
-                value={note}
-                onChange={props.onStoreNoteChange.bind(null, store.id)} />
-            </div>
-          </div>
-        )
-      })}
-      <div className='screen-preview__section' key='table'>
-        <h3 className='screen-preview__section-headline'>Dësch</h3>
-        <div className='screen-preview__field'>
-          <FieldText
-            placeholder='Dësch'
-            value={draft.table}
-            onChange={props.onTableChange}
-          />
+      <div className='screen-preview__section'>
+        <h2 className='screen-preview__section-headline'>
+          Bestellung
+        </h2>
+        <div className='screen-preview__stores'>
+          {stores.map(store => {
+            const lineItems = draft.lineItems.filter(lineItem =>
+              productMap.get(lineItem.productId)?.storeId === store.id)
+            const lineItemProducts = lineItems.map(lineItem =>
+              productMap.get(lineItem.productId)) as ExportedProduct[]
+            const note = draft.storeNotes.find(storeNote =>
+              storeNote.storeId === store.id)?.note ?? ''
+            return (
+              <div className='screen-preview__store' key={store.id}>
+                <h3 className='screen-preview__store-headline'>
+                  {store.name}
+                </h3>
+                <div className='screen-preview__store-items'>
+                  <ItemList
+                    products={lineItemProducts}
+                    lineItems={lineItems}
+                    onLineItemChange={props.onLineItemChange}
+                  />
+                </div>
+                <div className='screen-preview__field'>
+                  <FieldText
+                    placeholder='Kommentar'
+                    value={note}
+                    onChange={props.onStoreNoteChange.bind(null, store.id)} />
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
-      <div className='screen-preview__section' key='waiter'>
-        <h3 className='screen-preview__section-headline'>Service</h3>
+      <div className='screen-preview__section'>
+        <h2 className='screen-preview__section-headline'>
+          Detailer
+        </h2>
+        {isDeliverable && (
+          <div className='screen-preview__field'>
+            <FieldText
+              label='Dësch'
+              placeholder='Dësch'
+              value={draft.table ?? ''}
+              onChange={props.onTableChange}
+            />
+          </div>
+        )}
         <div className='screen-preview__field'>
           <FieldText
+            label='Service'
             placeholder='Service'
             value={draft.orderer}
             onChange={props.onOrdererChange}
           />
         </div>
-      </div>
-      <div className='screen-preview__submit'>
-        <Button
-          label={submitLabel}
-          enabled={submitEnabled}
-          onClick={props.onDoneClick}
-        />
+        <div className='screen-preview__section-actions'>
+          <Button
+            label={submitLabel}
+            enabled={submitEnabled}
+            onClick={props.onDoneClick}
+          />
+        </div>
       </div>
     </div>
   )

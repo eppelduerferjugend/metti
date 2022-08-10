@@ -1,9 +1,9 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { OrderResponse, OrderDraft, orderDraftSchema } from '../../../../types/types'
-import { OrderState, Prisma } from '@prisma/client'
-import { z } from 'zod'
+import { OrderResponse, orderDraftSchema } from '../../../../types/types'
+import { OrderState, Prisma, Table } from '@prisma/client'
 import { prisma } from '../../../../prisma'
+import { z } from 'zod'
 
 const ordersQuerySchema = z.object({
   state: z.nativeEnum(OrderState).optional(),
@@ -12,6 +12,12 @@ const ordersQuerySchema = z.object({
 })
 
 type OrdersQuery = z.infer<typeof ordersQuerySchema>
+
+export const createOrderPayloadSchema = z.object({
+  draft: orderDraftSchema
+})
+
+export type CreateOrderPayload = z.infer<typeof createOrderPayloadSchema>
 
 export default async function handler(
   req: NextApiRequest,
@@ -53,14 +59,16 @@ export default async function handler(
       break
     }
     case 'POST': {
-      let orderDraft: OrderDraft
+      let payload: CreateOrderPayload
       try {
-        orderDraft = orderDraftSchema.parse(req.body)
+        payload = createOrderPayloadSchema.parse(req.body)
       } catch (error) {
         res.status(400).end(`Bad request`)
         console.error(error)
         return
       }
+
+      const orderDraft = payload.draft
 
       // Gather products mentioned in the order draft
       const products = await prisma.product.findMany({
@@ -102,18 +110,31 @@ export default async function handler(
           stores.findIndex(({ id }) =>
             store.id === id) === index)
 
+      // Handle order destination if at least one of the stores is deliverable
+      const hasDeliverableStore = stores.find(store => store.deliverable) !== undefined
+      let table: Table | undefined
+      if (hasDeliverableStore) {
+        if (orderDraft.table === null || orderDraft.table === '') {
+          res.status(400).json({
+            error: true,
+            message: 'Et gouf keng Destinatioun uginn.'
+          })
+          return
+        }
+
+        // Find existing or create new table
+        table = await prisma.table.upsert({
+          where: { name: orderDraft.table },
+          update: {},
+          create: { name: orderDraft.table }
+        })
+      }
+
       // Find existing or create new assignee
       const assignee = await prisma.user.upsert({
         where: { name: orderDraft.orderer },
         update: {},
         create: { name: orderDraft.orderer }
-      })
-
-      // Find existing or create new table
-      const table = await prisma.table.upsert({
-        where: { name: orderDraft.table },
-        update: {},
-        create: { name: orderDraft.table }
       })
 
       // Sum up the number of items previously ordered in each store
@@ -140,7 +161,9 @@ export default async function handler(
               store: { connect: { id: store.id } },
               number: prefixedNumber,
               state: OrderState.pending,
-              table: { connect: { id: table.id } },
+              table: store.deliverable && table !== undefined
+                ? { connect: { id: table.id } }
+                : {},
               assignee: { connect: { id: assignee.id } },
               note: orderDraft.storeNotes.find(storeNote =>
                 storeNote.storeId === store.id)?.note,

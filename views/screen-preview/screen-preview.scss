@@ -2,25 +2,77 @@
 @import '../../styles/shared.scss';
 
 .screen-preview {
-  padding-top: 24px;
 
   &__section {
-
-    & + & {
-      padding-top: 32px;
-    }
+    padding: 24px 16px 32px;
+    border-bottom: 1px solid $c-line;
   }
 
   &__section-headline {
-    padding: 0 20px;
+    padding-bottom: 16px;
+    @extend %t-h1;
+  }
+
+  &__section-actions {
+    padding-top: 32px;
+  }
+
+  &__stores {
+    display: flex;
+    flex-direction: column;
+    margin: 0 -16px;
+  }
+
+  &__store {
+    position: relative;
+    margin: 24px 0;
+    padding: 24px 16px;
+    background: $c-shaded;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -24px;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background:
+        linear-gradient(-45deg, $c-shaded 16px, transparent 16px, transparent 16px,  transparent 0),
+        linear-gradient(45deg, $c-shaded 16px, transparent 0);
+      background-position: left top;
+      background-repeat: repeat-x;
+      background-size: 22px 32px;
+    }
+
+    &::after {
+      top: auto;
+      bottom: -16px;
+      background:
+        linear-gradient(-45deg, transparent 16px, $c-shaded 0),
+        linear-gradient(45deg, transparent 16px, $c-shaded 0);
+      background-position: left top;
+      background-repeat: repeat-x;
+      background-size: 22px 32px;
+    }
+  }
+
+  &__store-headline {
+    padding-bottom: 8px;
     @extend %t-h2;
   }
 
-  &__field {
-    padding: 8px 20px 0;
+  &__store-items {
+    margin: 0 -16px;
   }
 
-  &__submit {
-    padding: 32px 20px 64px;
+  &__form {
+    margin-top: 16px;
+    padding: 0 16px 64px 16px;
+  }
+
+  &__field + &__field {
+    margin-top: 24px;
   }
 }
