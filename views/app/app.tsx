@@ -5,7 +5,6 @@ import ScreenOrderView from '../screen-order/screen-order'
 import ScreenPreviewView from '../screen-preview/screen-preview'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import useAppSelector from '../../hooks/useAppSelector'
-import { PaymentProvider } from '@prisma/client'
 import { getOrderDraft, getOrderStep, setOrderLineItemAction, setOrderStepAction, resetOrderDraftAction, setStoreNoteAction, setOrderOrdererAction, setOrderTableAction, amendOrderDraftAction } from '../../slices/order'
 import { useCreateOrderMutation, useGetProductsQuery } from '../../slices/api'
 

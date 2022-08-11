@@ -35,8 +35,6 @@ export default function ScreenPreviewView (props: {
       .filter((store, index, stores) =>
         stores.findIndex(({ id }) => store.id === id) === index)
 
-  const isDeliverable = stores.find(store => store.deliverable) !== undefined
-
   // Verify order
   let submitEnabled = true
   let submitLabel = 'Bestellung opginn'
@@ -46,14 +44,12 @@ export default function ScreenPreviewView (props: {
     submitLabel = 'Service net uginn'
   }
 
-  if (isDeliverable) {
-    if (draft.table?.length === 0) {
-      submitEnabled = false
-      submitLabel = 'Dëschnummer net uginn'
-    } else if (!draft.table?.match('^[A-Za-z][0-9]{1,2}$')) {
-      submitEnabled = false
-      submitLabel = 'Ongëlteg Dëschnummer'
-    }
+  if (draft.table?.length === 0) {
+    submitEnabled = false
+    submitLabel = 'Dëschnummer net uginn'
+  } else if (!draft.table?.match('^[A-Za-z][0-9]{1,2}$')) {
+    submitEnabled = false
+    submitLabel = 'Ongëlteg Dëschnummer'
   }
 
   return (
@@ -105,16 +101,14 @@ export default function ScreenPreviewView (props: {
         <h2 className='screen-preview__section-headline'>
           Detailer
         </h2>
-        {isDeliverable && (
-          <div className='screen-preview__field'>
-            <FieldText
-              label='Dësch'
-              placeholder='Dësch'
-              value={draft.table ?? ''}
-              onChange={props.onTableChange}
-            />
-          </div>
-        )}
+        <div className='screen-preview__field'>
+          <FieldText
+            label='Dësch'
+            placeholder='Dësch'
+            value={draft.table ?? ''}
+            onChange={props.onTableChange}
+          />
+        </div>
         <div className='screen-preview__field'>
           <FieldText
             label='Service'

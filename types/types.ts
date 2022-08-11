@@ -1,5 +1,5 @@
 
-import { Store, Product, ProductCategory, Order, LineItem, Table, User, OrderState, PaymentProvider } from '@prisma/client'
+import { Store, Product, ProductCategory, Order, LineItem, Table, User, OrderState } from '@prisma/client'
 import { z } from 'zod'
 
 export type ExportableProduct = Product & {
@@ -43,7 +43,7 @@ export type OrderDraftStoreNote = z.infer<typeof orderDraftStoreNoteSchema>
 export const orderDraftSchema = z.object({
   lineItems: z.array(orderDraftLineItemSchema),
   storeNotes: z.array(orderDraftStoreNoteSchema),
-  table: z.string().nullable(),
+  table: z.string(),
   orderer: z.string(),
   test: z.boolean()
 })

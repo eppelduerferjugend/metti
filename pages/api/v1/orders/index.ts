@@ -193,21 +193,24 @@ export default async function handler(
                     }))
                 }
               },
-              printerJobs: {
-                create: {
-                  state: PrinterJobState.pending,
-                  printer: store.slug,
-                  content: composeReceiptContent({
-                    number,
-                    date: orderDate,
-                    table: table.name,
-                    quantifiedProducts,
-                    orderer: assignee.name,
-                    note,
-                    paperWidth
-                  })
+              printerJobs:
+                store.newOrderReceiptPrinter !== null
+                ? {
+                  create: {
+                    state: PrinterJobState.pending,
+                    printer: store.newOrderReceiptPrinter,
+                    content: composeReceiptContent({
+                      number,
+                      date: orderDate,
+                      table: table.name,
+                      quantifiedProducts,
+                      orderer: assignee.name,
+                      note,
+                      paperWidth
+                    })
+                  }
                 }
-              },
+                : {},
               test: orderDraft.test,
               createdAt: orderDate
             },

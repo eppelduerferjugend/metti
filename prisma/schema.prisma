@@ -73,8 +73,6 @@ model Order {
   table Table? @relation(fields: [tableId], references: [id])
   assigneeId Int
   assignee User @relation(fields: [assigneeId], references: [id])
-  paymentId Int?
-  payment Payment?
   printerJobs PrinterJob[]
   test Boolean
   transitionedAt DateTime @default(now())
@@ -96,11 +94,10 @@ model Store {
   slug String @unique @db.VarChar(255)
   name String @unique @db.VarChar(255)
   description String
-  payable Boolean
-  deliverable Boolean
   numberPrefix String @unique @db.VarChar(255)
   products Product[]
   orders Order[]
+  newOrderReceiptPrinter String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -112,39 +109,11 @@ enum PrinterJobState {
 
 model PrinterJob {
   id Int @id @default(autoincrement())
-  state PrinterJobState
+  state PrinterJobState @default(pending)
   printer String @db.VarChar(255)
   content String
   orderId Int?
   order Order? @relation(fields: [orderId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-enum PaymentProvider {
-  payconiq
-  sumup
-}
-
-enum PaymentState {
-  pending
-  canceled
-  completed
-}
-
-model Payment {
-  id Int @id @default(autoincrement())
-  state PaymentState
-  provider PaymentProvider
-  providerId String @db.VarChar(255)
-  providerPayload Json?
-  orderId Int @unique
-  order Order @relation(fields: [orderId], references: [id])
-  amountPayable Int
-  amountPayed Int?
-  message String?
-  completedAt DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  @@unique([provider, providerId])
 }

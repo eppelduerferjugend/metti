@@ -3,8 +3,7 @@
     "id": 1,
     "name": "Bar",
     "description": "Gedrénks & Desserten",
-    "payable": false,
-    "deliverable": true,
+    "newOrderReceiptPrinter": "bar",
     "numberPrefix": "BAR-",
     "slug": "bar"
   },
@@ -12,18 +11,8 @@
     "id": 2,
     "name": "Spaghetti",
     "description": "Spaghetti Bestellungen",
-    "payable": false,
-    "deliverable": true,
+    "newOrderReceiptPrinter": null,
     "numberPrefix": "SPA-",
     "slug": "spaghetti"
-  },
-  {
-    "id": 3,
-    "name": "Keess",
-    "description": "Verkaaf an der Keess",
-    "payable": true,
-    "deliverable": false,
-    "numberPrefix": "KES-",
-    "slug": "checkout"
   }
 ]
