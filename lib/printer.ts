@@ -34,11 +34,18 @@ export const composeReceiptContent = (payload: {
   const countWidth = 8
   const priceWidth = 10
   const nameWidth = paperWidth - countWidth - priceWidth
+  const noteWidth = paperWidth - 6
 
   const nameWrapOptions = {
     width: nameWidth,
     trim: true,
-    cut: true,
+    newline: '\n',
+    indent: ''
+  }
+
+  const noteWrapOptions = {
+    width: noteWidth,
+    trim: true,
     newline: '\n',
     indent: ''
   }
@@ -47,14 +54,16 @@ export const composeReceiptContent = (payload: {
 
   // Render table
   if (table !== undefined) {
-    content += table + '\n\n'
+    content += centerAlignString(`╔${'═'.repeat(14)}╗`, paperWidth) + '\n'
+    content += centerAlignString(`║${centerAlignString(`Dësch ${table}`, 14)}║`, paperWidth) + '\n'
+    content += centerAlignString(`╚${'═'.repeat(14)}╝`, paperWidth) + '\n'
+    content += '\n'
   }
 
   // Render date and number
-  content += `${formatDateTime(date)} ${number}\n\n`
-
-  // Render items header
-  content += `┌─────┬─${'─'.repeat(nameWidth)}─┬───────┐\n`
+  content += `┌────────────┬─${'─'.repeat(paperWidth - 25)}─────────┐\n`
+  content += `│ ${number.padEnd(10, ' ')} │ ${formatDateTime(date).padStart(paperWidth - 17)} │\n`
+  content += `├─────┬──────┴─${'─'.repeat(paperWidth - 25)}─┬───────┤\n`
 
   for (let i = 0; i < quantifiedProducts.length; i++) {
     const { product, quantity } = quantifiedProducts[i]
@@ -64,9 +73,9 @@ export const composeReceiptContent = (payload: {
     for (let j = 0; j < nameLines.length; j++) {
       // Render quantity column
       if (j === 0) {
-        content += `│${quantity.toString().padStart(3, ' ')}x │ `
+        content += `│ ${quantity.toString().padEnd(3, ' ')}x│ `
       } else {
-        content += '│    │ '
+        content += '│     │ '
       }
 
       // Render item name column
@@ -94,20 +103,45 @@ export const composeReceiptContent = (payload: {
 
   content += '\n'
 
-  // Render optional note
+  // Render orderer and optional note
+  content += `┌${'─'.repeat(paperWidth - 2)}┐\n`
+  content += `│ Zerwéiert vu(m) ${leftAlignString(orderer, paperWidth - 20)} │\n`
+
   if (note !== undefined) {
-    content += `Kommentar: ${note}\n`
+    const noteLines = wrap(note, noteWrapOptions).split('\n')
+    content += `├${'─'.repeat(paperWidth - 2)}┤\n`
+
+    for (let i = 0; i < noteLines.length; i++) {
+      if (i === 0) {
+        content += '│ „'
+      } else {
+        content += '│  '
+      }
+
+      content += leftAlignString(noteLines[i], noteWidth)
+
+      if (i < noteLines.length - 1) {
+        content += '  │\n'
+      } else {
+        content += '“ │\n'
+      }
+    }
   }
 
-  // Render orderer
-  content += `Service: ${orderer}\n`
+  content += `└${'─'.repeat(paperWidth - 2)}┘\n`
 
   return content
 }
 
-export const applyEllipsis = (string: string, length: number): string => {
-  if (string.length < length) {
-    return string
+export const centerAlignString = (string: string, width: number): string => {
+  const length = Math.min(string.length, width)
+  const padding = Math.floor((width - length) / 2)
+  return ' '.repeat(padding) + leftAlignString(string, length) + ' '.repeat(width - padding - length)
+}
+
+export const leftAlignString = (string: string, length: number): string => {
+  if (string.length <= length) {
+    return string + ' '.repeat(length - string.length)
   }
   return string.substring(0, length - 1) + '…'
 }
