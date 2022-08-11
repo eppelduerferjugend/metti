@@ -75,6 +75,7 @@ model Order {
   assignee User @relation(fields: [assigneeId], references: [id])
   paymentId Int?
   payment Payment?
+  printerJobs PrinterJob[]
   test Boolean
   transitionedAt DateTime @default(now())
   createdAt DateTime @default(now())
@@ -100,6 +101,22 @@ model Store {
   numberPrefix String @unique @db.VarChar(255)
   products Product[]
   orders Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PrinterJobState {
+  pending
+  completed
+}
+
+model PrinterJob {
+  id Int @id @default(autoincrement())
+  state PrinterJobState
+  printer String @db.VarChar(255)
+  content String
+  orderId Int?
+  order Order? @relation(fields: [orderId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

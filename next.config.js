@@ -7,6 +7,10 @@ const nextConfig = {
       {
         source: '/api(.*)',
         headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/json; charset=utf-8'
+          },
           // The following example instructs the Edge Network to cache the
           // response for 5 seconds.
           {

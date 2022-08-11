@@ -1,9 +1,13 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { OrderResponse, orderDraftSchema } from '../../../../types/types'
-import { OrderState, Prisma, Table } from '@prisma/client'
+import { OrderState, PrinterJobState, Prisma, Product } from '@prisma/client'
+import { composeReceiptContent } from '../../../../lib/printer'
 import { prisma } from '../../../../prisma'
 import { z } from 'zod'
+
+// TODO: Move to database
+const paperWidth = 52
 
 const ordersQuerySchema = z.object({
   state: z.nativeEnum(OrderState).optional(),
@@ -110,25 +114,20 @@ export default async function handler(
           stores.findIndex(({ id }) =>
             store.id === id) === index)
 
-      // Handle order destination if at least one of the stores is deliverable
-      const hasDeliverableStore = stores.find(store => store.deliverable) !== undefined
-      let table: Table | undefined
-      if (hasDeliverableStore) {
-        if (orderDraft.table === null || orderDraft.table === '') {
-          res.status(400).json({
-            error: true,
-            message: 'Et gouf keng Destinatioun uginn.'
-          })
-          return
-        }
-
-        // Find existing or create new table
-        table = await prisma.table.upsert({
-          where: { name: orderDraft.table },
-          update: {},
-          create: { name: orderDraft.table }
+      if (orderDraft.table === null || orderDraft.table === '') {
+        res.status(400).json({
+          error: true,
+          message: 'Et gouf keng Destinatioun uginn.'
         })
+        return
       }
+
+      // Find existing or create new table
+      const table = await prisma.table.upsert({
+        where: { name: orderDraft.table },
+        update: {},
+        create: { name: orderDraft.table }
+      })
 
       // Find existing or create new assignee
       const assignee = await prisma.user.upsert({
@@ -150,38 +149,67 @@ export default async function handler(
       )))
         .map(aggregation => aggregation._sum.quantity ?? 0)
 
+      // Order date
+      const orderDate = new Date()
+
       // Create an order per store
       const orders = await prisma.$transaction(
         stores.map((store, storeIndex) => {
+          // Compose number
           const orderedItemsCount = storeOrderedItemCount[storeIndex]
-          const numberString = (orderedItemsCount + 1).toString()
-          const prefixedNumber = store.numberPrefix + numberString.padStart(4, '0')
+          const rawNumber = (orderedItemsCount + 1).toString()
+          const number = store.numberPrefix + rawNumber.padStart(4, '0')
+
+          // Gather products and quantities in this order
+          const quantifiedProducts = products
+            // Filter products for this store
+            .filter(product => product.storeId === store.id)
+            .map((product): { product: Product, quantity: number } => ({
+              product,
+              // Use quantity in line item for this product
+              quantity: orderDraft.lineItems.find(lineItem =>
+                lineItem.productId === product.id
+              )?.quantity ?? 0
+            }))
+
+          // Gather note
+          const note = orderDraft.storeNotes.find(storeNote =>
+            storeNote.storeId === store.id)?.note
+
           return prisma.order.create({
             data: {
               store: { connect: { id: store.id } },
-              number: prefixedNumber,
+              number,
               state: OrderState.pending,
-              table: store.deliverable && table !== undefined
-                ? { connect: { id: table.id } }
-                : {},
+              table: { connect: { id: table.id } },
               assignee: { connect: { id: assignee.id } },
-              note: orderDraft.storeNotes.find(storeNote =>
-                storeNote.storeId === store.id)?.note,
+              note,
               items: {
                 createMany: {
-                  data: products
-                    // Filter products for this store
-                    .filter(product => product.storeId === store.id)
-                    .map((product): Prisma.LineItemCreateManyOrderInput => ({
-                      productId: product.id,
-                      // Use quantity in line item for this product
-                      quantity: orderDraft.lineItems.find(lineItem =>
-                        lineItem.productId === product.id
-                      )?.quantity ?? 0
+                  data:
+                    quantifiedProducts.map((quantifiedProduct): Prisma.LineItemCreateManyOrderInput => ({
+                      productId: quantifiedProduct.product.id,
+                      quantity: quantifiedProduct.quantity
                     }))
                 }
               },
-              test: orderDraft.test
+              printerJobs: {
+                create: {
+                  state: PrinterJobState.pending,
+                  printer: store.slug,
+                  content: composeReceiptContent({
+                    number,
+                    date: orderDate,
+                    table: table.name,
+                    quantifiedProducts,
+                    orderer: assignee.name,
+                    note,
+                    paperWidth
+                  })
+                }
+              },
+              test: orderDraft.test,
+              createdAt: orderDate
             },
             include: {
               table: true,
@@ -195,7 +223,6 @@ export default async function handler(
           })
         })
       )
-
       res.status(200).end(JSON.stringify(orders))
       break
     }
