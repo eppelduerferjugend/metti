@@ -54,13 +54,13 @@ export default async function handler(
         return
       }
 
-      const order = await prisma.order.update({
+      const printerJob = await prisma.printerJob.update({
         where: { id: query.id },
         data: {
           state: payload.state
         }
       })
-      res.status(200).end(JSON.stringify(order))
+      res.status(200).end(JSON.stringify(printerJob))
       break
     }
   }
