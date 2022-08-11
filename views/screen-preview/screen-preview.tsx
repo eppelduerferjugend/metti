@@ -5,6 +5,7 @@ import Header from '../header/header'
 import ItemList from '../item-list/item-list'
 import React from 'react'
 import { OrderDraft, ExportedProduct } from '../../types/types'
+import { formatCurrency } from '../../utils/format'
 
 export default function ScreenPreviewView (props: {
   products: ExportedProduct[]
@@ -85,7 +86,11 @@ export default function ScreenPreviewView (props: {
                     onLineItemChange={props.onLineItemChange}
                   />
                 </div>
-                <div className='screen-preview__field'>
+                <div className='screen-preview__store-total'>
+                  {formatCurrency(lineItems.reduce((sum, lineItem, index) =>
+                    sum + lineItem.quantity * lineItemProducts[index].unitPrice, 0))}
+                </div>
+                <div className='screen-preview__store-note'>
                   <FieldText
                     placeholder='Kommentar'
                     value={note}

@@ -1,4 +1,8 @@
 
+:root {
+  --c-line: #{$c-line};
+}
+
 * {
   outline: none;
   box-sizing: border-box;

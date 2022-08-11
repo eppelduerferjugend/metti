@@ -28,6 +28,7 @@
     margin: 24px 0;
     padding: 24px 16px;
     background: $c-shaded;
+    --c-line: #{$c-shaded-line};
 
     &::before,
     &::after {
@@ -65,6 +66,26 @@
 
   &__store-items {
     margin: 0 -16px;
+  }
+
+  &__store-total {
+    position: relative;
+    padding: 10px 0 8px;
+    @extend %t-h3;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: -16px;
+      border-top: 2px solid var(--c-line);
+    }
+  }
+
+  &__store-note {
+    padding-top: 8px;
   }
 
   &__form {
