@@ -36,6 +36,25 @@
     color: $c-white
   }
 
+  &__order-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__order-icon {
+    line-height: 0;
+  }
+
+  &__order--canceled &__order-header {
+    background: $c-white;
+    color: $c-text;
+  }
+
+  &__order--canceled &__order-number {
+    text-decoration: line-through;
+  }
+
   &__order--completed &__order-header {
     background: $c-white;
     color: $c-text;
@@ -49,6 +68,8 @@
   &__order-body {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     flex-grow: 1;
     flex-basis: 0;
     padding: 16px;
@@ -87,15 +108,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 4px 12px;
+    border-radius: 14px;
+    border: 1px solid currentColor;
   }
 
   &__order-assignee {
-    padding-right: 8px;
+    @extend %t-h3;
   }
 
   &__order-note {
-    padding: 4px 12px;
-    border-radius: 12px;
-    background: #f2f4f6;
+    padding-left: 8px;
   }
 }

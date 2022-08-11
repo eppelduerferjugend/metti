@@ -80,7 +80,7 @@ export const orderSlice = createSlice({
     setOrderTableAction: (state, { payload }: PayloadAction<{
       table: string
     }>) => {
-      state.draft.table = payload.table
+      state.draft.table = payload.table.toUpperCase().substring(0, 3)
     },
     setOrderOrdererAction: (state, { payload }: PayloadAction<{
       orderer: string

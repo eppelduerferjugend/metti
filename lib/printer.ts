@@ -73,7 +73,7 @@ export const composeReceiptContent = (payload: {
     for (let j = 0; j < nameLines.length; j++) {
       // Render quantity column
       if (j === 0) {
-        content += `│ ${quantity.toString().padEnd(3, ' ')}x│ `
+        content += `│ ${`${quantity.toString()}x`.padEnd(4, ' ')}│ `
       } else {
         content += '│     │ '
       }

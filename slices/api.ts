@@ -40,6 +40,15 @@ export const apiSlice = createApi({
         method: 'PUT',
         body: args.payload
       })
+    }),
+    printOrderReceipt: builder.mutation<any, {
+      orderId: number
+    }>({
+      query: (args) => ({
+        url: `orders/${args.orderId}/print-receipt`,
+        method: 'POST',
+        body: {}
+      })
     })
   })
 })
@@ -50,5 +59,6 @@ export const {
   useGetOrdersQuery,
   useLazyGetOrdersQuery,
   useCreateOrderMutation,
-  useUpdateOrderMutation
+  useUpdateOrderMutation,
+  usePrintOrderReceiptMutation
 } = apiSlice

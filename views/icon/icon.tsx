@@ -2,14 +2,28 @@
 type SVGProps = React.ComponentPropsWithoutRef<'svg'>
 
 const iconSVGMap = {
+  /** Icon by Iconic (https://iconic.app/check-circle/) */
   checkCircle: (props: SVGProps): JSX.Element => (
-    <svg {...props} width='512' height='512' viewBox='0 0 512 512'>
-      <path fill='currentColor' d='M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z' />
+    <svg {...props} width='24' height='24' fill='none' viewBox='0 0 24 24'>
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M4.75 12C4.75 7.99594 7.99594 4.75 12 4.75V4.75C16.0041 4.75 19.25 7.99594 19.25 12V12C19.25 16.0041 16.0041 19.25 12 19.25V19.25C7.99594 19.25 4.75 16.0041 4.75 12V12Z' />
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M9.75 12.75L10.1837 13.6744C10.5275 14.407 11.5536 14.4492 11.9564 13.7473L14.25 9.75' />
     </svg>
   ),
+  /** Icon by Iconic (https://iconic.app/close-circle/) */
   errorCircle: (props: SVGProps): JSX.Element => (
-    <svg {...props} width='512' height='512' viewBox='0 0 512 512'>
-      <path fill='currentColor' d='M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z' />
+    <svg {...props} width='24' height='24' fill='none' viewBox='0 0 24 24'>
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M4.75 12C4.75 7.99594 7.99594 4.75 12 4.75V4.75C16.0041 4.75 19.25 7.99594 19.25 12V12C19.25 16.0041 16.0041 19.25 12 19.25V19.25C7.99594 19.25 4.75 16.0041 4.75 12V12Z' />
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M9.75 9.75L14.25 14.25' />
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M14.25 9.75L9.75 14.25' />
+    </svg>
+  ),
+  /** Icon by Iconic (https://iconic.app/refresh/) */
+  refresh: (props: SVGProps): JSX.Element => (
+    <svg {...props} width='24' height='24' fill='none' viewBox='0 0 24 24'>
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M11.25 4.75L8.75 7L11.25 9.25' />
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M12.75 19.25L15.25 17L12.75 14.75' />
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M9.75 7H13.25C16.5637 7 19.25 9.68629 19.25 13V13.25' />
+      <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M14.25 17H10.75C7.43629 17 4.75 14.3137 4.75 11V10.75' />
     </svg>
   ),
   /** Icon by Iconic (https://iconic.app/minus/) */
@@ -23,6 +37,14 @@ const iconSVGMap = {
     <svg {...props} width='24' height='24' viewBox='0 0 24 24' fill='none'>
       <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M12 5.75V18.25' />
       <path stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='M18.25 12L5.75 12' />
+    </svg>
+  ),
+  /** Icon by Iconic Pro (https://iconic.app/hourglass/) */
+  hourglass: (props: SVGProps): JSX.Element => (
+    <svg {...props} width='24' height='24' viewBox='0 0 24 24' fill='none'>
+      <path d='M5.75 4.75H18.25M6.75 4.75H17.25V6C17.25 8.89949 14.8995 11.25 12 11.25C9.10051 11.25 6.75 8.8995 6.75 6V4.75Z' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+      <path d='M9 10H15' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+      <path d='M5.75 19.25H18.25M6.75 19.25H17.25V17.5C17.25 14.6005 14.8995 12.25 12 12.25C9.10051 12.25 6.75 14.6005 6.75 17.5V19.25Z' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
     </svg>
   ),
   spinner: (props: SVGProps): JSX.Element => (

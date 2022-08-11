@@ -1,16 +1,20 @@
 
+import IconView from '../icon/icon'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import useAppSelector from '../../hooks/useAppSelector'
 import useOrdersSync from '../../hooks/useOrdersSync'
+import { Order, OrderState } from '@prisma/client'
+import { formatTime } from '../../utils/format'
 import { getStoreOrders, updateOrdersAction } from '../../slices/orders'
-import { useEffect, useRef } from 'react'
-import { useUpdateOrderMutation } from '../../slices/api'
+import { useEffect, useRef, useState } from 'react'
+import { usePrintOrderReceiptMutation, useUpdateOrderMutation } from '../../slices/api'
 
 export default function StoreDisplayView (props: {
   storeId: number
 }): JSX.Element {
   const dispatch = useAppDispatch()
   const [dispatchUpdateOrder] = useUpdateOrderMutation()
+  const [dispatchPrintOrderReceipt] = usePrintOrderReceiptMutation()
   const alertAudioRef = useRef<HTMLAudioElement | null>(null)
 
   // Keep syncing local orders state with the server
@@ -19,107 +23,164 @@ export default function StoreDisplayView (props: {
   // Retrieve orders from state
   const orders = useAppSelector(state => getStoreOrders(state.orders, props.storeId))
 
+  // Manage pointers to order elements
+  const [selectedOrderIndex, setSelectedOrderIndex] = useState<number | undefined>(undefined)
+  const orderRefs = useRef<{ [name: number]: HTMLButtonElement | undefined }>({})
+  const onOrderRef = (index: number, element: HTMLButtonElement) => {
+    if (element !== null) {
+      orderRefs.current[index] = element
+    } else {
+      orderRefs.current[index] = undefined
+    }
+  }
+
+  // If selection changes focus it and move it into view
+  useEffect(() => {
+    if (selectedOrderIndex !== undefined) {
+      orderRefs.current[selectedOrderIndex]?.focus()
+      orderRefs.current[selectedOrderIndex]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      })
+    }
+  }, [orderRefs, selectedOrderIndex])
+
+  const onBlur = () => {
+    setSelectedOrderIndex(undefined)
+  }
+
+  const onFocus = (index: number) => {
+    setSelectedOrderIndex(index)
+  }
+
   useEffect(() => {
     if (orders.length > 0) {
       alertAudioRef.current?.play()
+      if (selectedOrderIndex === undefined) {
+        setSelectedOrderIndex(orders.length - 1)
+      }
     }
   }, [orders.length])
 
-  // Manage pointers to order elements
-  const orderRefs = useRef<{ [name: number]: HTMLButtonElement | undefined }>({})
-  const onOrderRef = (orderId: number, element: HTMLButtonElement) => {
-    if (element !== null) {
-      orderRefs.current[orderId] = element
-    } else {
-      orderRefs.current[orderId] = undefined
+  const changeOrderState = async (order: Order, newState: OrderState) => {
+    const result = await dispatchUpdateOrder({
+      orderId: order.id,
+      payload: {
+        state: newState
+      }
+    })
+    if ('data' in result) {
+      const updatedOrder = result.data
+      dispatch(updateOrdersAction({ orders: [updatedOrder] }))
     }
   }
 
-  // Focus handler
-  const onFocus = (orderId: number) => {
-    // Move into view
-    orderRefs.current[orderId]?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
+  const printOrder = async (order: Order) => {
+    const result = await dispatchPrintOrderReceipt({
+      orderId: order.id
     })
   }
 
-  // Key handler
-  const onKeyPress = (orderId: number, event: React.KeyboardEvent) => {
+  const onKeyPress = (event: KeyboardEvent) => {
     switch (event.key) {
       case ' ':
       case 'Enter': {
-        event.preventDefault()
-        const order = orders.find(order => order.id === orderId)
-        if (order !== undefined) {
-          ;(async () => {
-            // Toggle state between pending and completed
-            const newState = order.state === 'pending' ? 'completed' : 'pending'
-            const result = await dispatchUpdateOrder({
-              orderId,
-              payload: {
-                state: newState
-              }
-            })
-            if ('data' in result) {
-              const updatedOrder = result.data
-              dispatch(updateOrdersAction({ orders: [updatedOrder] }))
-            }
-          })()
+        if (selectedOrderIndex !== undefined) {
+          changeOrderState(
+            orders[selectedOrderIndex],
+            orders[selectedOrderIndex].state === 'pending' ? 'completed' : 'pending'
+          )
         }
+        event.preventDefault()
+        break
+      }
+      case 'Backspace':
+      case 'Delete': {
+        if (selectedOrderIndex !== undefined) {
+          changeOrderState(orders[selectedOrderIndex], 'canceled')
+        }
+        event.preventDefault()
+        break
+      }
+      case 'd':
+      case 'p': {
+        if (selectedOrderIndex !== undefined) {
+          printOrder(orders[selectedOrderIndex])
+        }
+        event.preventDefault()
         break
       }
       case 'ArrowDown':
       case 'ArrowRight':
       case 's':
       case 'd': {
-        const orderIndex = orders.findIndex(order => order.id === orderId)
-        if (orderIndex !== -1) {
-          const nextOrder = orders[(orderIndex + 1) % orders.length]
-          orderRefs.current[nextOrder.id]?.focus()
-          event.preventDefault()
-        }
+        setSelectedOrderIndex(((selectedOrderIndex ?? -1) + 1) % orders.length)
+        event.preventDefault()
         break
       }
       case 'ArrowUp':
       case 'ArrowLeft':
       case 'w':
       case 'a': {
-        const orderIndex = orders.findIndex(order => order.id === orderId)
-        if (orderIndex !== -1) {
-          const previousOrder = orders[(orders.length + (orderIndex - 1)) % orders.length]
-          orderRefs.current[previousOrder.id]?.focus()
-          event.preventDefault()
-        }
+        setSelectedOrderIndex(((selectedOrderIndex ?? 1) + orders.length - 1) % orders.length)
+        event.preventDefault()
         break
       }
     }
   }
+
+  const onKeyPressRef = useRef<typeof onKeyPress | undefined>()
+  useEffect(() => {
+    onKeyPressRef.current = onKeyPress
+  }, [onKeyPress])
+
+  useEffect(() => {
+    if (onKeyPressRef.current !== undefined) {
+      const onKeyPress = (event: KeyboardEvent) => {
+        onKeyPressRef.current?.(event)
+      }
+      window.addEventListener('keydown', onKeyPress)
+      return () => {
+        window.removeEventListener('keydown', onKeyPress)
+      }
+    }
+  }, [onKeyPressRef])
 
   return (
     <div className='store-display'>
       <audio ref={alertAudioRef} preload='auto'>
         <source src='/assets/alert.mp3' type='audio/mpeg' />
       </audio>
-      <ul className='store-display__orders'>
-        {orders.map(order => (
-          <li>
+      <ul className='store-display__orders' onBlur={onBlur}>
+        {orders.map((order, index) => (
+          <li key={order.id}>
             <button
               className={`store-display__order store-display__order--${order.state.toLowerCase()}`}
-              key={order.id}
-              onFocus={onFocus.bind(null, order.id)}
-              onKeyDown={onKeyPress?.bind(null, order.id)}
-              ref={onOrderRef.bind(null, order.id)}
+              onFocus={onFocus.bind(null, index)}
+              ref={onOrderRef.bind(null, index)}
             >
               <header className='store-display__order-header'>
-                <span className='store-display__order-number'>
-                  {order.number}
-                </span>
+                <div className='store-display__order-head'>
+                  <span className='store-display__order-number'>
+                    {order.number}
+                  </span>
+                  <span className='store-display__order-icon'>
+                    {order.state === OrderState.pending && (
+                      <IconView icon='hourglass' />
+                    )}
+                    {order.state === OrderState.canceled && (
+                      <IconView icon='errorCircle' />
+                    )}
+                    {order.state === OrderState.completed && (
+                      <IconView icon='checkCircle' />
+                    )}
+                  </span>
+                </div>
                 <span className='store-display__order-table'>
                   {order.table.name}
                 </span>
                 <span className='store-display__order-time'>
-                  {new Date(order.createdAt).toLocaleTimeString('de-DE')}
+                  {formatTime(new Date(order.createdAt))}
                 </span>
               </header>
               <div className='store-display__order-body'>
@@ -145,7 +206,7 @@ export default function StoreDisplayView (props: {
                   </span>
                   {order.note && (
                     <span className='store-display__order-note'>
-                      {order.note}
+                      {`„${order.note}“`}
                     </span>
                   )}
                 </footer>

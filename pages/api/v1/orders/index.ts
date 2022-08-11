@@ -7,7 +7,7 @@ import { prisma } from '../../../../prisma'
 import { z } from 'zod'
 
 // TODO: Move to database
-const paperWidth = 42
+export const paperWidth = 42
 
 const ordersQuerySchema = z.object({
   state: z.nativeEnum(OrderState).optional(),
