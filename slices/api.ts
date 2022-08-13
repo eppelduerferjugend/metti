@@ -1,7 +1,7 @@
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { CreateOrderPayload } from '../pages/api/v1/orders'
-import { OrderResponse, ExportedProduct, ExportedOrder, UpdateOrderPayload } from '../types/types'
+import { CreateOrderResponse, ExportedProduct, ExportedOrder, UpdateOrderPayload } from '../types/types'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -24,7 +24,7 @@ export const apiSlice = createApi({
         })
       }
     }),
-    createOrder: builder.mutation<OrderResponse, CreateOrderPayload>({
+    createOrder: builder.mutation<CreateOrderResponse, CreateOrderPayload>({
       query: (args) => ({
         url: 'orders',
         method: 'POST',

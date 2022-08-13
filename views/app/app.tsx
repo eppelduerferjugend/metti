@@ -27,7 +27,7 @@ export default function AppView (): JSX.Element {
             amendedDraft: createOrderResult.data.amendedDraft
           }))
         }
-      } else {
+      } else if (Array.isArray(createOrderResult.data)) {
         // Succeeded
         dispatch(resetOrderDraftAction({}))
       }
@@ -74,10 +74,17 @@ export default function AppView (): JSX.Element {
       )}
       {step === 'completion' && (
         <ScreenCompletionView
-          state={createOrderResult.isLoading ? 'loading' : createOrderResult.isError ? 'error' : 'success'}
-          onBackClick={() => dispatch(setOrderStepAction({ step: 'preview' }))}
-          onDoneClick={() => dispatch(setOrderStepAction({ step: 'order' }))}
-          onRetryClick={undefined/* TODO: Repeat */}
+          state={createOrderResult.isLoading ? 'loading' : createOrderResult.isError ? 'error' : Array.isArray(createOrderResult.data) ? 'success' : 'error'}
+          createOrderResult={createOrderResult.data}
+          onBackClick={() => {
+            dispatch(setOrderStepAction({ step: 'preview' }))
+            createOrderResult.reset()
+          }}
+          onDoneClick={() => {
+            dispatch(setOrderStepAction({ step: 'order' }))
+            createOrderResult.reset()
+          }}
+          onRetryClick={onOrderClick}
         />
       )}
     </div>

@@ -59,7 +59,7 @@ export const createOrderErrorResponseSchema = z.object({
 export type OrderErrorResponse =
   z.infer<typeof createOrderErrorResponseSchema>
 
-export type OrderResponse =
+export type CreateOrderResponse =
   ExportedOrder[] | OrderErrorResponse
 
 export const updateOrderPayloadSchema = z.object({

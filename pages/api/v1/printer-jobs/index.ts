@@ -1,7 +1,6 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { OrderResponse } from '../../../../types/types'
-import { PrinterJobState } from '@prisma/client'
+import { PrinterJob, PrinterJobState } from '@prisma/client'
 import { prisma } from '../../../../prisma'
 import { z } from 'zod'
 
@@ -14,7 +13,7 @@ type PrinterJobsQuery = z.infer<typeof printerJobsQuerySchema>
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<OrderResponse>
+  res: NextApiResponse<PrinterJob[]>
 ) {
   switch (req.method) {
     case 'GET': {

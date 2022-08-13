@@ -1,6 +1,6 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { OrderResponse, orderDraftSchema } from '../../../../types/types'
+import { CreateOrderResponse, orderDraftSchema } from '../../../../types/types'
 import { OrderState, PrinterJobState, Prisma, Product } from '@prisma/client'
 import { composeReceiptContent } from '../../../../lib/printer'
 import { prisma } from '../../../../prisma'
@@ -25,7 +25,7 @@ export type CreateOrderPayload = z.infer<typeof createOrderPayloadSchema>
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<OrderResponse>
+  res: NextApiResponse<CreateOrderResponse>
 ) {
   switch (req.method) {
     case 'GET': {

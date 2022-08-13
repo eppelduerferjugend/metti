@@ -3,9 +3,11 @@ import ButtonView from '../button/button'
 import HeaderView from '../header/header'
 import IconView from '../icon/icon'
 import React from 'react'
+import { CreateOrderResponse } from '../../types/types'
 
 export default function ScreenCompletionView (props: {
   state: 'loading' | 'error' | 'success'
+  createOrderResult?: CreateOrderResponse
   onBackClick?: React.MouseEventHandler
   onDoneClick?: React.MouseEventHandler
   onRetryClick?: React.MouseEventHandler
@@ -35,9 +37,21 @@ export default function ScreenCompletionView (props: {
               icon='checkCircle'
               className='screen-completion__icon'
             />
-            <p className='screen-completion__message'>
-              Bestellung ass opginn.
-            </p>
+            {!Array.isArray(props.createOrderResult) && (
+              <p className='screen-completion__message'>
+                Bestellung ass opginn.
+              </p>
+            )}
+            {Array.isArray(props.createOrderResult) && (
+              <p className='screen-completion__message'>
+                {props.createOrderResult.length === 1 && (
+                  `D'Bestellung ${props.createOrderResult[0].number} ass opginn.`
+                )}
+                {props.createOrderResult.length !== 1 && (
+                  `D'Bestellungen ${props.createOrderResult.map(order => order.number).join(', ')} sinn opginn.`
+                )}
+              </p>
+            )}
             <ButtonView
               label='Fäerdeg'
               onClick={props.onDoneClick}
