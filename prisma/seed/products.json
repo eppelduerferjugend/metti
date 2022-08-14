@@ -370,6 +370,13 @@
     "categories": ["Digestifs"]
   },
   {
+    "id": 53,
+    "name": "Drëpp Speedy",
+    "unitPrice": 300,
+    "storeSlug": "bar",
+    "categories": ["Digestifs"]
+  },
+  {
     "id": 54,
     "name": "Drëpp Kiischten",
     "unitPrice": 300,
