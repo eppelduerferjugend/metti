@@ -93,11 +93,14 @@
   &__item-quantity {
     display: flex;
     align-items: center;
-    height: 32px;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     padding: 0 12px;
-    border-radius: 16px;
+    border-radius: 20px;
     background: var(--product-color);
     color: $c-white;
+    @extend %t-h2;
   }
 
   &__item-name {
