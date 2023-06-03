@@ -53,7 +53,7 @@ export const composeReceiptContent = (payload: {
   let content = ''
 
   // Render table
-  if (table !== undefined) {
+  if (table !== undefined && table !== 'N/A') {
     content += centerAlignString(`╔${'═'.repeat(14)}╗`, paperWidth) + '\n'
     content += centerAlignString(`║${centerAlignString(`Dësch ${table}`, 14)}║`, paperWidth) + '\n'
     content += centerAlignString(`╚${'═'.repeat(14)}╝`, paperWidth) + '\n'
@@ -105,7 +105,7 @@ export const composeReceiptContent = (payload: {
 
   // Render orderer and optional note
   content += `┌${'─'.repeat(paperWidth - 2)}┐\n`
-  content += `│ Zerwéiert vu(m) ${leftAlignString(orderer, paperWidth - 20)} │\n`
+  content += `│ Zerwéiert vum ${leftAlignString(orderer, paperWidth - 20)} │\n`
 
   if (note !== undefined) {
     const noteLines = wrap(note, noteWrapOptions).split('\n')
