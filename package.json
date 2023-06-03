@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prisma-migrate": "dotenv -c -- npx prisma migrate dev",
     "prisma-reset": "dotenv -c -- npx prisma migrate reset",
-    "seed": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/seed.ts"
+    "seed": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/seed.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^4.1.1",
