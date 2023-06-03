@@ -105,7 +105,7 @@ export const composeReceiptContent = (payload: {
 
   // Render orderer and optional note
   content += `┌${'─'.repeat(paperWidth - 2)}┐\n`
-  content += `│ Zerwéiert vum ${leftAlignString(orderer, paperWidth - 20)} │\n`
+  content += `│ Zerwéiert vum ${leftAlignString(orderer, paperWidth - 18)} │\n`
 
   if (note !== undefined) {
     const noteLines = wrap(note, noteWrapOptions).split('\n')
