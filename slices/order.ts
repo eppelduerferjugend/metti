@@ -5,8 +5,8 @@ import { OrderDraft } from '../types/types'
 export const emptyOrderDraft: OrderDraft = {
   lineItems: [],
   storeNotes: [],
-  table: '',
-  orderer: '',
+  table: process.env.NEXT_PUBLIC_DEFAULT_TABLE ?? '',
+  orderer: process.env.NEXT_PUBLIC_DEFAULT_ORDERER ?? '',
   test: false
 }
 

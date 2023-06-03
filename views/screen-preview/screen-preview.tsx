@@ -47,7 +47,7 @@ export default function ScreenPreviewView (props: {
   if (draft.table?.length === 0) {
     submitEnabled = false
     submitLabel = 'Dëschnummer net uginn'
-  } else if (!draft.table?.match('^[A-Za-z][0-9]{1,2}$')) {
+  } else if (!draft.table?.match('^(N/A|[A-Za-z][0-9]{1,3})$')) {
     submitEnabled = false
     submitLabel = 'Ongëlteg Dëschnummer'
   }
